@@ -1,10 +1,12 @@
 import React from 'react';
 
+import Wrapper from '../../components/Wrapper/wrapper.jsx';
+
 const Home = () => {
   return (
-    <div>
-      <h2>Home</h2>
-    </div>
+    <Wrapper>
+      <h2 className="card__title">Home</h2>
+    </Wrapper>
   );
 };
 
