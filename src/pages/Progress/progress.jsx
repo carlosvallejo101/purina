@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles } from '@material-ui/core/styles';
@@ -25,11 +25,40 @@ const BorderLinearProgress = withStyles((theme) => ({
 
 const Progress = () => {
   const history = useHistory();
+  const [progressValue] = useState(50);
+  const [quote, setQuote] = useState('');
+
+  useEffect(() => {
+    if (progressValue < 10) {
+      setQuote('Apenas empiezas, ¡Ánimo!');
+    }
+    if (progressValue >= 10 && progressValue < 40) {
+      setQuote('Vas por buen camino');
+    }
+    if (progressValue >= 40 && progressValue < 60) {
+      setQuote('¡Ya estás por la mitad!');
+    }
+    if (progressValue >= 60 && progressValue < 80) {
+      setQuote('¡El premio es casi tuyo!');
+    }
+    if (progressValue >= 80 && progressValue < 90) {
+      setQuote('¡El premio es casi tuyo!');
+    }
+    if (progressValue >= 90) {
+      setQuote('¡La meta está cerca!');
+    }
+  }, [progressValue]);
+
   return (
     <Wrapper>
       <div>
         <div className="progress__data">
-          <img src={OptiAge} alt={OptiAge} />
+          <div>
+            <h3 className="progress__quote--white">
+              Tu esfuerzo se transformará en este premio:
+            </h3>
+            <img src={OptiAge} alt={OptiAge} />
+          </div>
           <div className="card progress__info">
             <h2 className="card__title">Tu Avance</h2>
             <div className="invoice-box">
@@ -59,9 +88,10 @@ const Progress = () => {
               </table>
             </div>
             <div className="progress__bar">
+              <p className="progress__quote">{quote}</p>
               <BorderLinearProgress
                 variant="determinate"
-                value={90}
+                value={progressValue}
                 thickness={50}
               />
             </div>
