@@ -1,0 +1,165 @@
+.results {
+  width: 70%;
+  background-color: white;
+  height: 50vh;
+  border-radius: 8px;
+}
+
+.results__title {
+  margin: 20px auto;
+  width: fit-content;
+}
+
+.results__body {
+  display: flex;
+  justify-content: space-around;
+}
+
+.tabs {
+}
+
+.tabs__container {
+  display: flex;
+  justify-content: center;
+}
+
+.tabs__title {
+  margin: 10px 30px;
+  font-size: 18px;
+  color: rgb(110, 110, 110);
+  font-family: 'Inter', 'sans-serif';
+  font-weight: 400;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.1s ease-in;
+  -webkit-user-select: none; /* Chrome all / Safari all */
+  -moz-user-select: none; /* Firefox all */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none;
+  font-weight: 400;
+}
+
+.tabs__title:hover {
+  color: rgb(110, 110, 110);
+}
+
+.tabs__title--active {
+  color: #f7c467;
+  font-weight: 600;
+  position: relative;
+  transition: all 0.1s ease-in;
+}
+
+.tabs__title--active::before {
+  position: absolute;
+  top: 110%;
+  left: 40%;
+  content: '';
+  width: 7px;
+  height: 7px;
+  background-color: #f7c467;
+  border-radius: 50%;
+}
+
+.results__table {
+  min-width: 500px;
+  margin: 20px auto;
+  padding: 30px;
+  border: 1px solid #eee;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  font-size: 16px;
+  line-height: 24px;
+  font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+  color: #555;
+
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.results__table table {
+  width: 100%;
+  line-height: inherit;
+  text-align: left;
+}
+
+.results__table table td {
+  padding: 5px;
+  vertical-align: top;
+}
+
+.results__table table tr td:nth-child(2) {
+  text-align: right;
+}
+
+.results__table table tr td:nth-child(3) {
+  text-align: right;
+}
+
+.results__table table tr td:nth-child(4) {
+  text-align: right;
+}
+
+.results__table table tr.top table td {
+  padding-bottom: 20px;
+}
+
+.results__table table tr.top table td.title {
+  font-size: 24px;
+  line-height: 45px;
+  color: #333;
+  font-weight: 700;
+}
+
+.title p {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 300px;
+}
+
+.results__table table tr.information table td {
+  padding-bottom: 40px;
+}
+
+.results__table table tr.heading td {
+  background: #eee;
+  border-bottom: 1px solid #ddd;
+  font-weight: bold;
+}
+
+.results__table table tr.details td {
+  padding-bottom: 20px;
+}
+
+.results__table table tr.item td {
+  border-bottom: 1px solid #eee;
+}
+
+.results__table table tr.item.last td {
+  border-bottom: none;
+}
+
+.results__table table tr.total td:nth-child(2) {
+  border-top: 2px solid #eee;
+  font-weight: bold;
+}
+
+.item__comment {
+  width: 400px;
+}
+
+@media only screen and (max-width: 600px) {
+  .results__table table tr.top table td {
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+
+  .results__table table tr.information table td {
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+}
