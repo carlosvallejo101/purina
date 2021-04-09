@@ -1,0 +1,14 @@
+.product {
+  /* background-color: red; */
+  position: relative;
+}
+
+.product img {
+  width: 400px;
+}
+
+.icon {
+  position: absolute;
+  right: -30px;
+  top: -30px;
+}
