@@ -6,3 +6,9 @@
   justify-content: center;
   gap: 20px;
 }
+
+.home__button {
+  display: flex;
+  width: 300px;
+  margin: 10px auto;
+}

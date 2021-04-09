@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import './home.css';
 
 import Wrapper from '../../components/Wrapper/wrapper.jsx';
@@ -23,6 +24,7 @@ const products = [
 ];
 
 const Home = () => {
+  const history = useHistory();
   return (
     <Wrapper>
       <div>
@@ -31,6 +33,11 @@ const Home = () => {
           {products.map((product) => (
             <Product image={product} key={product} />
           ))}
+        </div>
+        <div className="home__button">
+          <button className="button" onClick={() => history.push('/progress')}>
+            Guardar
+          </button>
         </div>
       </div>
     </Wrapper>
