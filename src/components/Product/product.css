@@ -1,6 +1,7 @@
 .product {
   /* background-color: red; */
   position: relative;
+  cursor: pointer;
 }
 
 .product img {
@@ -11,4 +12,41 @@
   position: absolute;
   right: -30px;
   top: -30px;
+}
+
+.product__modal {
+  position: absolute;
+  width: 400px;
+  border: '2px solid #000';
+  background-color: white;
+  border: none;
+  left: 0;
+  right: 0;
+  top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
+}
+
+.product__modal img {
+  width: 100%;
+}
+
+.modal__title {
+  color: #f7c467;
+}
+
+.modal__info {
+  padding: 10px 40px 30px 40px;
+}
+
+.product__title {
+  margin: 0;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.product__description li {
+  font-weight: 300;
+  font-size: 13px;
 }
