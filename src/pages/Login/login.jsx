@@ -55,7 +55,7 @@ const Login = () => {
         {error && <p>{error}</p>}
         <div>
           <div className="label-container">
-            <label>Celular o Email</label>
+            <label>Celular o Correo</label>
             <input
               type="text"
               value={credentials.phoneOrEmail}

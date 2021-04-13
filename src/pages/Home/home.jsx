@@ -297,7 +297,7 @@ const Home = () => {
     user.roles.includes('User') ? (
       <Wrapper>
         <div>
-          <h2 className="card__title">Home</h2>
+          <h2 className="home__title">Selecciona el premio que más te guste</h2>
           <div className="products">
             {products.map((product, index) => (
               <Product image={product.image} key={index} data={product.data} />
