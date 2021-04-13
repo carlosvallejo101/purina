@@ -10,8 +10,8 @@ const Login = () => {
   const history = useHistory();
   const { user } = useAuth();
   const [credentials, setCredentials] = useState({
-    phone: '123456789',
-    password: '1234',
+    phone: '',
+    password: '',
   });
   const [error, setError] = useState(null);
 
