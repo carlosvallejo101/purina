@@ -1,8 +1,10 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import './home.css';
+import { useAuth } from '../../auth/useAuth.jsx';
 
 import Wrapper from '../../components/Wrapper/wrapper.jsx';
+import Results from '../Results/results.jsx';
 import Product from '../../components/Product/product.jsx';
 
 import OptiAge from '../../assets/img/optiage.png';
@@ -277,22 +279,37 @@ const products = [
 
 const Home = () => {
   const history = useHistory();
-  return (
-    <Wrapper>
-      <div>
-        <h2 className="card__title">Home</h2>
-        <div className="products">
-          {products.map((product) => (
-            <Product image={product.image} key={product} data={product.data} />
-          ))}
+  const { user } = useAuth();
+  // console.log(user);
+  return user ? (
+    user.roles.includes('User') ? (
+      <Wrapper>
+        <div>
+          <h2 className="card__title">Home</h2>
+          <div className="products">
+            {products.map((product) => (
+              <Product
+                image={product.image}
+                key={product}
+                data={product.data}
+              />
+            ))}
+          </div>
+          <div className="home__button">
+            <button
+              className="button"
+              onClick={() => history.push('/progress')}
+            >
+              Guardar
+            </button>
+          </div>
         </div>
-        <div className="home__button">
-          <button className="button" onClick={() => history.push('/progress')}>
-            Guardar
-          </button>
-        </div>
-      </div>
-    </Wrapper>
+      </Wrapper>
+    ) : (
+      <Results />
+    )
+  ) : (
+    <p>Cargando</p>
   );
 };
 
