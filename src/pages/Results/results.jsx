@@ -48,49 +48,6 @@ const Results = () => {
               </div>
               {toggleTab()}
             </div>
-            <div>
-              <div className="results__table">
-                <table cellPadding={0} cellSpacing={0}>
-                  <tbody>
-                    <tr className="item">
-                      <td>Objetivo Total: </td>
-                      <td>5630 </td>
-                    </tr>
-                    <tr className="item last">
-                      <td>Objetivo Trimestral: </td>
-                      <td>693 </td>
-                    </tr>
-                    <tr className="item last">
-                      <td></td>
-                    </tr>
-                    <tr className="heading">
-                      <td>Usuario</td>
-                      <td>Abril</td>
-                      <td>Mayo</td>
-                      <td>Junio</td>
-                    </tr>
-                    <tr className="item">
-                      <td>Usuario Uno</td>
-                      <td>320</td>
-                      <td>320</td>
-                      <td>320</td>
-                    </tr>
-                    <tr className="item">
-                      <td>Usuario Dos</td>
-                      <td>320</td>
-                      <td>320</td>
-                      <td>320</td>
-                    </tr>
-                    <tr className="item">
-                      <td>Usuario Tres</td>
-                      <td>320</td>
-                      <td>320</td>
-                      <td>320</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
           </div>
         </div>
       </Wrapper>
@@ -125,23 +82,66 @@ const Objetivos = () => {
 
 const Resultados = () => {
   return (
+    // <div>
+    //   <div className="card card--small-padding">
+    //     <div>
+    //       <div className="label-container">
+    //         <label>Mes</label>
+    //         <input type="text" />
+    //       </div>
+    //       <div className="label-container">
+    //         <label>Usuario</label>
+    //         <input />
+    //       </div>
+    //       <div className="label-container">
+    //         <label>Objetivo alcanzado</label>
+    //         <input />
+    //       </div>
+    //       <button className="button">Guardar</button>
+    //     </div>
+    //   </div>
+    // </div>
     <div>
-      <div className="card card--small-padding">
-        <div>
-          <div className="label-container">
-            <label>Mes</label>
-            <input type="text" />
-          </div>
-          <div className="label-container">
-            <label>Usuario</label>
-            <input />
-          </div>
-          <div className="label-container">
-            <label>Objetivo alcanzado</label>
-            <input />
-          </div>
-          <button className="button">Guardar</button>
-        </div>
+      <div className="results__table">
+        <table cellPadding={0} cellSpacing={0}>
+          <tbody>
+            <tr className="item">
+              <td>Objetivo Total: </td>
+              <td>5630 </td>
+            </tr>
+            <tr className="item last">
+              <td>Objetivo Trimestral: </td>
+              <td>693 </td>
+            </tr>
+            <tr className="item last">
+              <td></td>
+            </tr>
+            <tr className="heading">
+              <td>Usuario</td>
+              <td>Abril</td>
+              <td>Mayo</td>
+              <td>Junio</td>
+            </tr>
+            <tr className="item">
+              <td>Usuario Uno</td>
+              <td>320</td>
+              <td>320</td>
+              <td>320</td>
+            </tr>
+            <tr className="item">
+              <td>Usuario Dos</td>
+              <td>320</td>
+              <td>320</td>
+              <td>320</td>
+            </tr>
+            <tr className="item">
+              <td>Usuario Tres</td>
+              <td>320</td>
+              <td>320</td>
+              <td>320</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   );
