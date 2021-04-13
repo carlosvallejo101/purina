@@ -1,13 +1,24 @@
 .progress {
+  display: flex;
+  flex-direction: column;
 }
 
 .progress__data {
   display: flex;
   align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 70%;
+  margin: 0 auto;
+}
+
+.progress__data img {
+  width: 100%;
 }
 
 .progress__info {
-  margin-left: 100px;
+  margin-top: 30px;
+  margin-left: 0px;
 }
 
 .progress__button {
@@ -22,6 +33,8 @@
 
 .progress__quote--white {
   color: white;
+  text-align: center;
+  font-weight: 400;
 }
 
 .progress__bar {
@@ -30,7 +43,8 @@
 }
 
 .invoice-box {
-  min-width: 300px;
+  /* min-width: 200px; */
+  width: 70%;
   margin: 20px auto;
   padding: 30px;
   border: 1px solid #eee;
@@ -145,4 +159,27 @@
 
 .rtl table tr td:nth-child(2) {
   text-align: left;
+}
+
+@media screen and (min-width: 480px) {
+}
+
+@media screen and (min-width: 1024px) {
+  .progress__quote--white {
+    text-align: left;
+  }
+
+  .progress__data {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .progress__data img {
+    width: 150%;
+  }
+
+  .progress__info {
+    margin-top: 0;
+    margin-left: 200px;
+  }
 }

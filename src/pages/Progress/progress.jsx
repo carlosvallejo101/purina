@@ -75,7 +75,7 @@ const Progress = () => {
   return user ? (
     user.roles.includes('User') ? (
       <Wrapper>
-        <div>
+        <div className="progress">
           <div className="progress__data">
             <div>
               <h3 className="progress__quote--white">
