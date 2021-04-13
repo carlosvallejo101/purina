@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { backend } from '../../config';
 import { useAuth } from '../../auth/useAuth.jsx';
+import './login.css';
 
 import Wrapper from '../../components/Wrapper/wrapper.jsx';
 
@@ -50,7 +51,7 @@ const Login = () => {
 
   return (
     <Wrapper>
-      <div className="card">
+      <div className="card login">
         <h2 className="card__title">Ingresa</h2>
         {error && <p>{error}</p>}
         <div>
