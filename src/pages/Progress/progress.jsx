@@ -152,6 +152,8 @@ const renderGift = (slug) => {
       return OptiHealth;
     case 'optistart':
       return OptiStart;
+    default:
+      return OptiAge;
   }
 };
 

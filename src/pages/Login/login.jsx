@@ -10,7 +10,7 @@ const Login = () => {
   const history = useHistory();
   const { user } = useAuth();
   const [credentials, setCredentials] = useState({
-    phone: '',
+    phoneOrEmail: '',
     password: '',
   });
   const [error, setError] = useState(null);
@@ -34,7 +34,7 @@ const Login = () => {
       const { data } = await axios.post(backend.url + '/api/auth', credentials);
       window.localStorage.setItem('purinaUser', JSON.stringify(data));
       setCredentials({
-        phone: '',
+        phoneOrEmail: '',
         password: '',
       });
       if (data.roles.includes('Admin')) {
@@ -55,12 +55,12 @@ const Login = () => {
         {error && <p>{error}</p>}
         <div>
           <div className="label-container">
-            <label>Celular</label>
+            <label>Celular o Email</label>
             <input
               type="text"
-              value={credentials.phone}
+              value={credentials.phoneOrEmail}
               onChange={({ target }) =>
-                setCredentials({ ...credentials, phone: target.value })
+                setCredentials({ ...credentials, phoneOrEmail: target.value })
               }
             />
           </div>
