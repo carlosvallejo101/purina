@@ -13,12 +13,23 @@ code {
 }
 
 .wrapper {
-  background-image: url('./assets/svg/fondo_general_purina.svg');
-  height: 100vh;
+  /* background-image: url('./assets/svg/fondo_general_purina.svg'); */
+  background-image: url('./assets/svg/fondo_footer.svg');
+  background-color: black;
+  /* height: 100vh; */
+  /* height: 1500px; */
   background-size: cover;
+  width: 100%;
+  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.wrapper__body {
+  flex: auto;
 }
 
 .card {
@@ -77,4 +88,13 @@ input:focus {
 
 .button--success {
   background-color: #8eec85;
+}
+
+@media screen and (min-width: 420px) {
+}
+
+@media screen and (min-width: 720px) {
+  .wrapper {
+    height: 100vh;
+  }
 }

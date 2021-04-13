@@ -1,20 +1,45 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .products {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
   align-items: center;
   justify-content: center;
   gap: 50px;
+  justify-items: center;
+  width: 90%;
+  margin: 0;
 }
 
 .home__title {
   color: white;
-  margin: 30px auto;
+  margin: 10px auto 20px auto;
   width: fit-content;
   font-weight: 400;
+  font-size: 16px;
 }
 
 .home__button {
   display: flex;
   width: 300px;
   margin: 40px auto 0 auto;
+}
+
+@media screen and (min-width: 480px) {
+  .products {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 720px) {
+  .products {
+    width: 60%;
+    gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }

@@ -55,7 +55,7 @@ const Product = ({ image, data }) => {
         </div>
       )}
       <img src={image} alt={image} onClick={handleOpen} />
-      <Modal open={open} onClose={handleClose}>
+      <Modal open={open} onClose={handleClose} style={{ overflow: 'scroll' }}>
         <div className={'product__modal'}>
           <img src={image} alt={image} />
           <div className="modal__info">
@@ -69,12 +69,6 @@ const Product = ({ image, data }) => {
           </div>
         </div>
       </Modal>
-      {/* <SweetAlert
-        show={swaOpen}
-        title="¡Genial!"
-        text="Hemos reservado tu premio especialmente para tí."
-        icon="warning"
-      /> */}
     </div>
   );
 };

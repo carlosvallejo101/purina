@@ -1,0 +1,25 @@
+.header {
+  width: 100%;
+  padding: 10px 0;
+  /* align-self: flex-start; */
+  display: flex;
+  justify-content: center;
+}
+
+.header img {
+  max-width: 80%;
+}
+
+@media screen and (min-width: 420px) {
+}
+
+@media screen and (min-width: 720px) {
+  .header {
+    justify-content: flex-start;
+  }
+
+  .header img {
+    padding: 20px 40px;
+    margin: 0px 20px;
+  }
+}
