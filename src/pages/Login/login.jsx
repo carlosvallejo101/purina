@@ -67,6 +67,7 @@ const Login = () => {
           <div className="label-container">
             <label>Contraseña</label>
             <input
+              type="password"
               value={credentials.password}
               onChange={({ target }) =>
                 setCredentials({ ...credentials, password: target.value })

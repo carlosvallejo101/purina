@@ -6,7 +6,7 @@ export const useAuth = () => {
   useEffect(() => {
     const purinaUser = JSON.parse(localStorage.getItem('purinaUser'));
     setUser(purinaUser);
-  }, [user]);
+  }, []);
 
   return { user };
 };

@@ -50,3 +50,7 @@
   font-weight: 300;
   font-size: 13px;
 }
+
+.modal__bottom {
+  margin: 0px 40px 30px 40px;
+}

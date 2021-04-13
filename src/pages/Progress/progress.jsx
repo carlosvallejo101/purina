@@ -4,11 +4,19 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles } from '@material-ui/core/styles';
 import './progress.css';
 import { useAuth } from '../../auth/useAuth.jsx';
+import axios from 'axios';
+import { backend } from '../../config';
 
 import Wrapper from '../../components/Wrapper/wrapper.jsx';
 import Home from '../Home/home.jsx';
 
 import OptiAge from '../../assets/img/optiage.png';
+import OptiDerma from '../../assets/img/optiderma.png';
+import OptiEnrich from '../../assets/img/optienrich.png';
+import OptiFit from '../../assets/img/optifit.png';
+import OptiFortis from '../../assets/img/optifortis.png';
+import OptiHealth from '../../assets/img/optihealth.png';
+import OptiStart from '../../assets/img/optistart.png';
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -30,6 +38,7 @@ const Progress = () => {
   const { user } = useAuth();
   const [progressValue] = useState(50);
   const [quote, setQuote] = useState('');
+  const [selectedGift, setSelectedGift] = useState(null);
 
   useEffect(() => {
     if (progressValue < 10) {
@@ -52,6 +61,17 @@ const Progress = () => {
     }
   }, [progressValue]);
 
+  useEffect(() => {
+    async function getGift() {
+      if (user) {
+        const { data } = await axios.get(`${backend.url}/api/users/${user.id}`);
+        const selectedGif = data.gift;
+        setSelectedGift(selectedGif);
+      }
+    }
+    getGift();
+  }, [user]);
+
   return user ? (
     user.roles.includes('User') ? (
       <Wrapper>
@@ -61,7 +81,7 @@ const Progress = () => {
               <h3 className="progress__quote--white">
                 Tu esfuerzo se transformará en este premio:
               </h3>
-              <img src={OptiAge} alt={OptiAge} />
+              <img src={renderGift(selectedGift)} alt={OptiAge} />
             </div>
             <div className="card progress__info">
               <h2 className="card__title">Tu Avance</h2>
@@ -114,6 +134,25 @@ const Progress = () => {
   ) : (
     <p>Cargando</p>
   );
+};
+
+const renderGift = (slug) => {
+  switch (slug) {
+    case 'optiage':
+      return OptiAge;
+    case 'optiderma':
+      return OptiDerma;
+    case 'optienrich':
+      return OptiEnrich;
+    case 'optifit':
+      return OptiFit;
+    case 'optifortis':
+      return OptiFortis;
+    case 'optihealth':
+      return OptiHealth;
+    case 'optistart':
+      return OptiStart;
+  }
 };
 
 export default Progress;
