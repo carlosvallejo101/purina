@@ -51,33 +51,40 @@ const Login = () => {
 
   return (
     <Wrapper>
-      <div className="card login">
-        <h2 className="card__title">Ingresa</h2>
-        {error && <p>{error}</p>}
-        <div>
-          <div className="label-container">
-            <label>Celular o Correo</label>
-            <input
-              type="text"
-              value={credentials.phoneOrEmail}
-              onChange={({ target }) =>
-                setCredentials({ ...credentials, phoneOrEmail: target.value })
-              }
-            />
+      <div className="login">
+        <div className="login__card-container">
+          <div className="card">
+            <h2 className="card__title">Ingresa</h2>
+            {error && <p>{error}</p>}
+            <div className="labels-container">
+              <div className="label-container">
+                <label>Celular o Correo</label>
+                <input
+                  type="text"
+                  value={credentials.phoneOrEmail}
+                  onChange={({ target }) =>
+                    setCredentials({
+                      ...credentials,
+                      phoneOrEmail: target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className="label-container">
+                <label>Contraseña</label>
+                <input
+                  type="password"
+                  value={credentials.password}
+                  onChange={({ target }) =>
+                    setCredentials({ ...credentials, password: target.value })
+                  }
+                />
+              </div>
+              <button className="button" onClick={login}>
+                Ingresar
+              </button>
+            </div>
           </div>
-          <div className="label-container">
-            <label>Contraseña</label>
-            <input
-              type="password"
-              value={credentials.password}
-              onChange={({ target }) =>
-                setCredentials({ ...credentials, password: target.value })
-              }
-            />
-          </div>
-          <button className="button" onClick={login}>
-            Ingresar
-          </button>
         </div>
       </div>
     </Wrapper>

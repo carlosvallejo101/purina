@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -13,13 +14,10 @@ code {
 }
 
 .wrapper {
-  /* background-image: url('./assets/svg/fondo_general_purina.svg'); */
-  background-image: url('./assets/svg/fondo_footer.svg');
-  background-color: black;
-  /* height: 100vh; */
-  /* height: 1500px; */
+  background-image: url('./assets/svg/fondo_dorado.svg');
   background-size: cover;
-  width: 100%;
+  height: 100%;
+  background-position: right;
   background-repeat: no-repeat;
   display: flex;
   justify-content: center;
@@ -30,17 +28,19 @@ code {
 
 .wrapper__body {
   flex: auto;
+  min-height: 80vh;
+  width: 100%;
 }
 
 .card {
   background-color: rgba(255, 255, 255, 1);
-  padding: 40px 20px;
+  padding: 40px 0px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 90%;
+  width: 100%;
 }
 
 .card--small-padding {
@@ -49,6 +49,7 @@ code {
 
 .card__title {
   margin: 0;
+  margin-bottom: 20px;
   color: black;
 }
 
@@ -56,16 +57,22 @@ code {
   display: flex;
   flex-direction: column;
   margin: 20px 0;
+  width: 100%;
+}
+
+.labels-container {
+  width: 70%;
 }
 
 .label-container label {
   font-size: 14px;
   margin-bottom: 3px;
   color: #696969;
+  width: 100%;
 }
 
 .label-container input {
-  width: 275px;
+  /* width: 275px; */
   border: solid 1.5px #d3d3d3;
   border-radius: 6px;
   height: 30px;
@@ -92,20 +99,20 @@ input:focus {
 }
 
 @media screen and (min-width: 420px) {
-  .card {
+  /* .card {
     padding: 40px 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
+  } */
   .wrapper {
-    padding-bottom: 100px;
+    /* padding-bottom: 100px; */
   }
 }
 
 @media screen and (min-width: 720px) {
   .wrapper {
-    height: 100vh;
+    /* height: 100vh; */
   }
 }
