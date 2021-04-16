@@ -1,6 +1,8 @@
 .progress {
   display: flex;
   flex-direction: column;
+  width: 90%;
+  margin: 0 auto;
 }
 
 .progress__data {
@@ -8,7 +10,7 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  width: 70%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -38,12 +40,11 @@
 }
 
 .progress__bar {
-  width: 100%;
+  width: 80%;
   height: 50px;
 }
 
 .invoice-box {
-  /* min-width: 200px; */
   width: 70%;
   margin: 20px auto;
   padding: 30px;
@@ -162,9 +163,16 @@
 }
 
 @media screen and (min-width: 480px) {
+  .progress {
+    width: 70%;
+  }
 }
 
 @media screen and (min-width: 1024px) {
+  .progress {
+    width: 60%;
+  }
+
   .progress__quote--white {
     text-align: left;
   }
