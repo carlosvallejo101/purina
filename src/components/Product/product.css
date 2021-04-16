@@ -7,6 +7,48 @@
   margin: 10px 0;
 }
 
+.product:before {
+  display: block;
+  content: ' ';
+  background-image: url('../../assets/svg/info_icon.svg');
+  background-size: 24px 24px;
+  background-repeat: no-repeat;
+  background-position: center;
+  content: ' ';
+  color: #fff;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+.product:hover:before {
+  opacity: 1;
+}
+
+.product:after {
+  display: block;
+  background-image: url('../../assets/img/logo_proplan.png');
+  background-size: 24px 24px;
+  height: 24px;
+  width: 24px;
+  content: ' ';
+  color: #fff;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+.product:hover:after {
+  opacity: 1;
+}
+
 .product img {
   width: 100%;
 }

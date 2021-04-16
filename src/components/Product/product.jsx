@@ -14,8 +14,10 @@ const Product = ({ image, data }) => {
   const history = useHistory();
   const [open, setOpen] = useState(false);
 
-  const handleOpen = () => {
-    setOpen(true);
+  const handleOpen = (e) => {
+    if (e.target.id === 'product') {
+      setOpen(true);
+    }
   };
 
   const handleClose = () => {
@@ -46,7 +48,7 @@ const Product = ({ image, data }) => {
   };
 
   return (
-    <div className="product">
+    <div className="product" id="product" onClick={handleOpen}>
       {data.isSelected && (
         <div className="icon">
           <IconButton>
@@ -54,7 +56,7 @@ const Product = ({ image, data }) => {
           </IconButton>
         </div>
       )}
-      <img src={image} alt={image} onClick={handleOpen} />
+      <img src={image} alt={image} />
       <Modal open={open} onClose={handleClose} style={{ overflow: 'scroll' }}>
         <div className={'product__modal'}>
           <img src={image} alt={image} />
