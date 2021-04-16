@@ -44,6 +44,23 @@
   height: 50px;
 }
 
+.progress__bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress__bar-container div {
+  width: 100%;
+}
+
+.progress__bar-container p {
+  width: fit-content;
+  margin: 0;
+  margin-left: 20px;
+  color: #555;
+}
+
 .invoice-box {
   width: 70%;
   margin: 20px auto;
@@ -127,6 +144,10 @@
 .invoice-box table tr.total td:nth-child(2) {
   border-top: 2px solid #eee;
   font-weight: bold;
+}
+
+.invoice-box table tr.total--secondary td:nth-child(2) {
+  border-top: 0;
 }
 
 .item__comment {

@@ -36,7 +36,7 @@ const BorderLinearProgress = withStyles((theme) => ({
 const Progress = () => {
   const history = useHistory();
   const { user } = useAuth();
-  const [progressValue] = useState(50);
+  const [progressValue] = useState(20);
   const [quote, setQuote] = useState('');
   const [selectedGift, setSelectedGift] = useState(null);
 
@@ -102,22 +102,35 @@ const Progress = () => {
                     </tr>
                     <tr className="item">
                       <td>Mayo</td>
-                      <td>320</td>
+                      <td>0</td>
                     </tr>
-                    <tr className="item">
+                    <tr className="item last">
                       <td>Junio</td>
-                      <td>320</td>
+                      <td>0</td>
                     </tr>
                   </tbody>
+                  <tr className="total">
+                    <td />
+                    <td>Total: 320</td>
+                  </tr>
+                  <tr className="total total--secondary">
+                    <td />
+                    <td>Restante: 5310</td>
+                  </tr>
                 </table>
               </div>
               <div className="progress__bar">
                 <p className="progress__quote">{quote}</p>
-                <BorderLinearProgress
-                  variant="determinate"
-                  value={progressValue}
-                  thickness={50}
-                />
+                <div className="progress__bar-container">
+                  <div>
+                    <BorderLinearProgress
+                      variant="determinate"
+                      value={progressValue}
+                      thickness={50}
+                    />
+                  </div>
+                  <p>{progressValue}%</p>
+                </div>
               </div>
             </div>
           </div>
