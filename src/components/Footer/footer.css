@@ -1,9 +1,9 @@
 .footer {
-  /* height: 50px; */
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 0;
 }
 
 .footer__line {
@@ -14,7 +14,6 @@
 
 .footer__logo {
   width: 50%;
-  /* background-color: bisque; */
 }
 
 @media screen and (min-width: 420px) {

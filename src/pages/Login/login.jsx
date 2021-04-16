@@ -53,7 +53,7 @@ const Login = () => {
     <Wrapper>
       <div className="login">
         <div className="login__card-container">
-          <div className="card">
+          <div className="card card--login">
             <h2 className="card__title">Ingresa</h2>
             {error && <p>{error}</p>}
             <div className="labels-container">
@@ -86,6 +86,7 @@ const Login = () => {
             </div>
           </div>
         </div>
+        <div className="triangulo"></div>
       </div>
     </Wrapper>
   );
