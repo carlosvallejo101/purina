@@ -3,17 +3,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url('../../assets/img/perro_gato.png');
+  background-repeat: no-repeat;
+  background-position-x: left;
+  background-position-y: bottom;
 }
 
 .products {
-  display: grid;
-  grid-template-columns: 1fr;
-  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 50px;
-  justify-items: center;
   width: 90%;
   margin: 0;
+  margin-bottom: 120px;
 }
 
 .home__title {
@@ -38,8 +40,17 @@
 
 @media screen and (min-width: 720px) {
   .products {
-    width: 60%;
+    width: 90%;
     gap: 20px;
     grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 1080px) {
+  .home {
+    background-position-x: 100px;
+  }
+  .products {
+    width: 60%;
   }
 }

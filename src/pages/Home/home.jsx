@@ -105,43 +105,46 @@ const Home = () => {
       },
     },
     {
-      image: OptiEnrich,
+      image: OptiStart,
       data: {
-        slug: 'optienrich',
-        title: 'OptiEnrich',
+        slug: 'optistart',
+        title: 'OptiStart',
         description: (
           <div>
             <div>
-              <h5 className="product__title">Chompa The North Face</h5>
+              <h5 className="product__title">Silla Giratoria Ejecutiva</h5>
               <ul className="product__description">
-                <li>Ajuste cómodo</li>
-                <li>100% Cortavientos e impermiable</li>
-                <li>Capota fija y ajustable</li>
-                <li>Solapa frontal con ajuste de Velcro</li>
-                <li>Se guarda en su propio bolsillo</li>
-                <li>Sistema Pit-Zip con cremalleras en las axilas</li>
-                <li>Ajuste con Velcro en las mangas</li>
-                <li>Cordón de ajuste en el dobladillo</li>
+                <li>Altura ajustable</li>
+                <li>Apoyabrazos aluminio/nylon fijos</li>
+                <li>Apoyo lumbar fijo</li>
+                <li>Giro 180°</li>
               </ul>
             </div>
             <div>
-              <h5 className="product__title">Smari Spa</h5>
+              <h5 className="product__title">Tablet XTRATECH</h5>
               <ul className="product__description">
-                <li>2 personas</li>
-                <li>1 noche</li>
-                <li>Hospedaje, instalaciones, desayuno</li>
+                <li>RAM 2GB</li>
+                <li>Almacenamiento 32GB</li>
+                <li>Puerto microSD hasta 128GB</li>
+                <li>Cámara 5MP + 5MP</li>
+                <li>Pantalla 10.1" 800x1280 IPS / 450nits</li>
               </ul>
             </div>
             <div>
-              <h5 className="product__title">Maleta The North Face</h5>
+              <h5 className="product__title">
+                Audífonos SONY Inalámbricos con Bluetooth
+              </h5>
               <ul className="product__description">
-                <li>Diseño clásico</li>
-                <li>Perfecta para campamento</li>
+                <li>Extra Bass WH-XB700</li>
+                <li>Claridad vocal, conexión Bluetooth</li>
+                <li>Batería de larga duración</li>
+                <li>Diseño elegante</li>
+                <li>Comodidad y funcionalidad máximas</li>
               </ul>
             </div>
           </div>
         ),
-        isSelected: selectedGift === 'optienrich' ? true : false,
+        isSelected: selectedGift === 'optistart' ? true : false,
       },
     },
     {
@@ -249,46 +252,43 @@ const Home = () => {
       },
     },
     {
-      image: OptiStart,
+      image: OptiEnrich,
       data: {
-        slug: 'optistart',
-        title: 'OptiStart',
+        slug: 'optienrich',
+        title: 'OptiEnrich',
         description: (
           <div>
             <div>
-              <h5 className="product__title">Silla Giratoria Ejecutiva</h5>
+              <h5 className="product__title">Chompa The North Face</h5>
               <ul className="product__description">
-                <li>Altura ajustable</li>
-                <li>Apoyabrazos aluminio/nylon fijos</li>
-                <li>Apoyo lumbar fijo</li>
-                <li>Giro 180°</li>
+                <li>Ajuste cómodo</li>
+                <li>100% Cortavientos e impermiable</li>
+                <li>Capota fija y ajustable</li>
+                <li>Solapa frontal con ajuste de Velcro</li>
+                <li>Se guarda en su propio bolsillo</li>
+                <li>Sistema Pit-Zip con cremalleras en las axilas</li>
+                <li>Ajuste con Velcro en las mangas</li>
+                <li>Cordón de ajuste en el dobladillo</li>
               </ul>
             </div>
             <div>
-              <h5 className="product__title">Tablet XTRATECH</h5>
+              <h5 className="product__title">Smari Spa</h5>
               <ul className="product__description">
-                <li>RAM 2GB</li>
-                <li>Almacenamiento 32GB</li>
-                <li>Puerto microSD hasta 128GB</li>
-                <li>Cámara 5MP + 5MP</li>
-                <li>Pantalla 10.1" 800x1280 IPS / 450nits</li>
+                <li>2 personas</li>
+                <li>1 noche</li>
+                <li>Hospedaje, instalaciones, desayuno</li>
               </ul>
             </div>
             <div>
-              <h5 className="product__title">
-                Audífonos SONY Inalámbricos con Bluetooth
-              </h5>
+              <h5 className="product__title">Maleta The North Face</h5>
               <ul className="product__description">
-                <li>Extra Bass WH-XB700</li>
-                <li>Claridad vocal, conexión Bluetooth</li>
-                <li>Batería de larga duración</li>
-                <li>Diseño elegante</li>
-                <li>Comodidad y funcionalidad máximas</li>
+                <li>Diseño clásico</li>
+                <li>Perfecta para campamento</li>
               </ul>
             </div>
           </div>
         ),
-        isSelected: selectedGift === 'optistart' ? true : false,
+        isSelected: selectedGift === 'optienrich' ? true : false,
       },
     },
   ];

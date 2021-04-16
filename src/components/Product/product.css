@@ -1,8 +1,10 @@
 .product {
-  /* background-color: red; */
+  box-sizing: border-box;
   position: relative;
   cursor: pointer;
   width: 100%;
+  flex: 0 0 calc(100% - 20px);
+  margin: 10px 0;
 }
 
 .product img {
@@ -56,7 +58,18 @@
 }
 
 @media screen and (min-width: 480px) {
+  .product {
+    flex: 0 0 calc(40% - 10px);
+    margin: 10px 20px;
+  }
   .product__modal {
     width: 400px;
+  }
+}
+
+@media screen and (min-width: 720px) {
+  .product {
+    flex: 0 0 calc(30% - 10px);
+    margin: 0;
   }
 }
