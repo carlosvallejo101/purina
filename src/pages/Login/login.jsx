@@ -21,7 +21,11 @@ const Login = () => {
       if (user.roles.includes('Admin')) {
         history.push('/results');
       }
-      if (user.roles.includes('User')) {
+      if (
+        user.roles.includes('Normal') ||
+        user.roles.includes('Support') ||
+        user.roles.includes('Dealer')
+      ) {
         history.push('/home');
       }
     }
@@ -41,7 +45,11 @@ const Login = () => {
       if (data.roles.includes('Admin')) {
         history.push('/results');
       }
-      if (data.roles.includes('User')) {
+      if (
+        data.roles.includes('Normal') ||
+        data.roles.includes('Support') ||
+        data.roles.includes('Dealer')
+      ) {
         const { data: loggedUser } = await axios.get(
           `${backend.url}/api/users/${data.id}`
         );

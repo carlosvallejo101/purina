@@ -81,7 +81,7 @@ const Progress = () => {
   }, [user]);
 
   return user ? (
-    user.roles.includes('User') ? (
+    user.roles.includes('Normal') ? (
       data ? (
         <Wrapper>
           <div className="progress">

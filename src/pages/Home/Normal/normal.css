@@ -1,0 +1,60 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../../../assets/img/perro_gato.png');
+  background-repeat: no-repeat;
+  background-position-x: left;
+  background-position-y: bottom;
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 90%;
+  margin: 0;
+  margin-bottom: 120px;
+}
+
+.home__title {
+  color: white;
+  margin: 10px auto 20px auto;
+  width: fit-content;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.home__button {
+  display: flex;
+  width: 300px;
+  margin: 40px auto 0 auto;
+}
+
+@media screen and (min-width: 480px) {
+  .products {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 720px) {
+  .home {
+    background-size: 300px;
+  }
+  .products {
+    width: 90%;
+    gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 1080px) {
+  .home {
+    background-size: 400px;
+    background-position-x: 100px;
+  }
+  .products {
+    width: 60%;
+  }
+}
