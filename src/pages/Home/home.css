@@ -39,6 +39,9 @@
 }
 
 @media screen and (min-width: 720px) {
+  .home {
+    background-size: 300px;
+  }
   .products {
     width: 90%;
     gap: 20px;
@@ -48,6 +51,7 @@
 
 @media screen and (min-width: 1080px) {
   .home {
+    background-size: 400px;
     background-position-x: 100px;
   }
   .products {
