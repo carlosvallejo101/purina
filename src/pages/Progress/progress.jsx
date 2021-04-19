@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import './progress.css';
 import { useAuth } from '../../auth/useAuth.jsx';
 import axios from 'axios';
+import NumberFormat from 'react-number-format';
 import { backend } from '../../config';
 
 import Wrapper from '../../components/Wrapper/wrapper.jsx';
@@ -97,8 +98,37 @@ const Progress = () => {
                   <table cellPadding={0} cellSpacing={0}>
                     <thead>
                       <tr className="item">
-                        <td>Objetivo: </td>
-                        <td>{data.objective} </td>
+                        <td>Tu objetivo trimestral: </td>
+                        <td>
+                          <NumberFormat
+                            value={data.objective}
+                            thousandSeparator={true}
+                            prefix={'$ '}
+                            displayType={'text'}
+                          />
+                        </td>
+                      </tr>
+                      <tr className="item">
+                        <td>Resultado acumulado: </td>
+                        <td>
+                          <NumberFormat
+                            value={data.total}
+                            thousandSeparator={true}
+                            prefix={'$ '}
+                            displayType={'text'}
+                          />
+                        </td>
+                      </tr>
+                      <tr className="item last">
+                        <td>Te falta: </td>
+                        <td>
+                          <NumberFormat
+                            value={data.remaining}
+                            thousandSeparator={true}
+                            prefix={'$ '}
+                            displayType={'text'}
+                          />
+                        </td>
                       </tr>
                       <tr className="heading">
                         <td>Mes</td>
@@ -112,21 +142,18 @@ const Progress = () => {
                         return (
                           <tr className={resultClassName} key={index}>
                             <td>{result.month}</td>
-                            <td>{result.value}</td>
+                            <td>
+                              <NumberFormat
+                                value={result.value}
+                                thousandSeparator={true}
+                                prefix={'$ '}
+                                displayType={'text'}
+                              />
+                            </td>
                           </tr>
                         );
                       })}
                     </thead>
-                    <tbody>
-                      <tr className="total">
-                        <td />
-                        <td>Total: {data.total}</td>
-                      </tr>
-                      <tr className="total total--secondary">
-                        <td />
-                        <td>Restante: {data.remaining}</td>
-                      </tr>
-                    </tbody>
                   </table>
                 </div>
                 <div className="progress__bar">
