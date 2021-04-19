@@ -36,9 +36,9 @@ const BorderLinearProgress = withStyles((theme) => ({
 const Progress = () => {
   const history = useHistory();
   const { user } = useAuth();
-  const [progressValue] = useState(20);
+  const [progressValue, setProgressValue] = useState(0);
   const [quote, setQuote] = useState('');
-  const [selectedGift, setSelectedGift] = useState(null);
+  const [data, setData] = useState();
 
   useEffect(() => {
     if (progressValue < 10) {
@@ -65,8 +65,15 @@ const Progress = () => {
     async function getGift() {
       if (user) {
         const { data } = await axios.get(`${backend.url}/api/users/${user.id}`);
-        const selectedGif = data.gift;
-        setSelectedGift(selectedGif);
+        const total = data.results.reduce((acum, result) => {
+          return acum + result.value;
+        }, 0);
+        setData({
+          ...data,
+          total,
+          remaining: parseInt(data.objective) - total,
+        });
+        setProgressValue(((total * 100) / data.objective).toFixed(0));
       }
     }
     getGift();
@@ -74,73 +81,79 @@ const Progress = () => {
 
   return user ? (
     user.roles.includes('User') ? (
-      <Wrapper>
-        <div className="progress">
-          <div className="progress__data">
-            <div>
-              <h3 className="progress__quote--white">
-                Tu esfuerzo se transformará en este premio:
-              </h3>
-              <img src={renderGift(selectedGift)} alt={OptiAge} />
-            </div>
-            <div className="card progress__info">
-              <h2 className="card__title">Tu Avance</h2>
-              <div className="invoice-box">
-                <table cellPadding={0} cellSpacing={0}>
-                  <tbody>
-                    <tr className="item">
-                      <td>Objetivo: </td>
-                      <td>5630 </td>
-                    </tr>
-                    <tr className="heading">
-                      <td>Mes</td>
-                      <td>Resultado</td>
-                    </tr>
-                    <tr className="item">
-                      <td>Abril</td>
-                      <td>320</td>
-                    </tr>
-                    <tr className="item">
-                      <td>Mayo</td>
-                      <td>0</td>
-                    </tr>
-                    <tr className="item last">
-                      <td>Junio</td>
-                      <td>0</td>
-                    </tr>
-                  </tbody>
-                  <tr className="total">
-                    <td />
-                    <td>Total: 320</td>
-                  </tr>
-                  <tr className="total total--secondary">
-                    <td />
-                    <td>Restante: 5310</td>
-                  </tr>
-                </table>
+      data ? (
+        <Wrapper>
+          <div className="progress">
+            <div className="progress__data">
+              <div>
+                <h3 className="progress__quote--white">
+                  Tu esfuerzo se transformará en este premio:
+                </h3>
+                <img src={renderGift(data.gift)} alt={OptiAge} />
               </div>
-              <div className="progress__bar">
-                <p className="progress__quote">{quote}</p>
-                <div className="progress__bar-container">
-                  <div>
-                    <BorderLinearProgress
-                      variant="determinate"
-                      value={progressValue}
-                      thickness={50}
-                    />
+              <div className="card progress__info">
+                <h2 className="card__title">Tu Avance</h2>
+                <div className="invoice-box">
+                  <table cellPadding={0} cellSpacing={0}>
+                    <thead>
+                      <tr className="item">
+                        <td>Objetivo: </td>
+                        <td>{data.objective} </td>
+                      </tr>
+                      <tr className="heading">
+                        <td>Mes</td>
+                        <td>Resultado</td>
+                      </tr>
+                      {data.results.map((result, index) => {
+                        let resultClassName = 'item';
+                        if (index === data.results.length - 1) {
+                          resultClassName = 'item last';
+                        }
+                        return (
+                          <tr className={resultClassName} key={index}>
+                            <td>{result.month}</td>
+                            <td>{result.value}</td>
+                          </tr>
+                        );
+                      })}
+                    </thead>
+                    <tbody>
+                      <tr className="total">
+                        <td />
+                        <td>Total: {data.total}</td>
+                      </tr>
+                      <tr className="total total--secondary">
+                        <td />
+                        <td>Restante: {data.remaining}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="progress__bar">
+                  <p className="progress__quote">{quote}</p>
+                  <div className="progress__bar-container">
+                    <div>
+                      <BorderLinearProgress
+                        variant="determinate"
+                        value={progressValue}
+                        thickness={50}
+                      />
+                    </div>
+                    <p>{progressValue}%</p>
                   </div>
-                  <p>{progressValue}%</p>
                 </div>
               </div>
             </div>
+            <div className="progress__button">
+              <button className="button" onClick={() => history.push('/home')}>
+                Quiero cambiar de premio
+              </button>
+            </div>
           </div>
-          <div className="progress__button">
-            <button className="button" onClick={() => history.push('/home')}>
-              Quiero cambiar de premio
-            </button>
-          </div>
-        </div>
-      </Wrapper>
+        </Wrapper>
+      ) : (
+        <p>Cargando...</p>
+      )
     ) : (
       <Home />
     )
