@@ -6,7 +6,7 @@ import { backend } from '../../config';
 
 import Wrapper from '../../components/Wrapper/wrapper.jsx';
 import Results from '../Results/results.jsx';
-import Product from '../../components/Product/product.jsx';
+// import Product from '../../components/Product/product.jsx';
 
 import OptiAge from '../../assets/img/optiage.png';
 import OptiDerma from '../../assets/img/optiderma.png';
@@ -15,6 +15,8 @@ import OptiFit from '../../assets/img/optifit.png';
 import OptiFortis from '../../assets/img/optifortis.png';
 import OptiHealth from '../../assets/img/optihealth.png';
 import OptiStart from '../../assets/img/optistart.png';
+
+import Dealer from '../Dealer/dealer.jsx';
 
 const Home = () => {
   const { user } = useAuth();
@@ -293,17 +295,22 @@ const Home = () => {
     },
   ];
 
+  console.log(products);
+
   return user ? (
     user.roles.includes('User') ? (
+      // <Wrapper>
+      //   <div className="home">
+      //     <h2 className="home__title">Selecciona el premio que más te guste</h2>
+      //     <div className="products">
+      //       {products.map((product, index) => (
+      //         <Product image={product.image} key={index} data={product.data} />
+      //       ))}
+      //     </div>
+      //   </div>
+      // </Wrapper>
       <Wrapper>
-        <div className="home">
-          <h2 className="home__title">Selecciona el premio que más te guste</h2>
-          <div className="products">
-            {products.map((product, index) => (
-              <Product image={product.image} key={index} data={product.data} />
-            ))}
-          </div>
-        </div>
+        <Dealer />
       </Wrapper>
     ) : (
       <Results />
