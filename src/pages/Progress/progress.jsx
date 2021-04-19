@@ -162,7 +162,7 @@ const Progress = () => {
                     <div>
                       <BorderLinearProgress
                         variant="determinate"
-                        value={progressValue}
+                        value={parseInt(progressValue)}
                         thickness={50}
                       />
                     </div>

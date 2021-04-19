@@ -8,5 +8,10 @@ export const useAuth = () => {
     setUser(purinaUser);
   }, []);
 
-  return { user };
+  const logout = () => {
+    setUser(null);
+    window.localStorage.removeItem('purinaUser');
+  };
+
+  return { user, logout };
 };

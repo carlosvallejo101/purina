@@ -1,0 +1,12 @@
+.logout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logout p {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+}
