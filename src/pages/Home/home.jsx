@@ -230,7 +230,7 @@ const Home = () => {
         description: (
           <div>
             <div>
-              <h5 className="product__title">Porátil HP 240</h5>
+              <h5 className="product__title">Portátil HP 240</h5>
               <ul className="product__description">
                 <li>G7 Celeron N4020</li>
                 <li>4GB DDR4</li>
@@ -264,7 +264,7 @@ const Home = () => {
               <h5 className="product__title">Chompa The North Face</h5>
               <ul className="product__description">
                 <li>Ajuste cómodo</li>
-                <li>100% Cortavientos e impermiable</li>
+                <li>100% Cortavientos e impermeable</li>
                 <li>Capota fija y ajustable</li>
                 <li>Solapa frontal con ajuste de Velcro</li>
                 <li>Se guarda en su propio bolsillo</li>
