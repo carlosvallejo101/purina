@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import BeenhereIcon from '@material-ui/icons/Beenhere';
 import LockIcon from '@material-ui/icons/Lock';
+import NumberFormat from 'react-number-format';
 import { withStyles } from '@material-ui/core/styles';
+import { useGetQuote } from '../../helpers/hooks/useGetQuote';
 import './dealer.css';
 
 import OptiStart from '../../assets/img/optistart.png';
@@ -23,6 +25,12 @@ const BorderLinearProgress = withStyles((theme) => ({
 }))(LinearProgress);
 
 const Dealer = () => {
+  const [progressValues] = useState({
+    purina: 100,
+    ladrina: 30,
+    extra: 0,
+  });
+
   return (
     <div className="progress">
       <div className="progress__data">
@@ -37,11 +45,25 @@ const Dealer = () => {
                     <thead>
                       <tr className="item">
                         <td>Tu objetivo trimestral: </td>
-                        <td>600</td>
+                        <td>
+                          <NumberFormat
+                            value={6000}
+                            thousandSeparator={true}
+                            prefix={'$ '}
+                            displayType={'text'}
+                          />
+                        </td>
                       </tr>
                       <tr className="item">
                         <td>Resultado acumulado: </td>
-                        <td>600</td>
+                        <td>
+                          <NumberFormat
+                            value={6000}
+                            thousandSeparator={true}
+                            prefix={'$ '}
+                            displayType={'text'}
+                          />
+                        </td>
                       </tr>
                       <tr className="item last">
                         <td>Te falta: </td>
@@ -62,15 +84,20 @@ const Dealer = () => {
                       />
                     </div>
                   </div>
-                  <div className="progress__bar-container">
-                    <div>
-                      <BorderLinearProgress
-                        variant="determinate"
-                        value={100}
-                        thickness={50}
-                      />
+                  <div className="progress__bar">
+                    <p className="progress__quote">
+                      {useGetQuote(progressValues.purina)}
+                    </p>
+                    <div className="progress__bar-container">
+                      <div>
+                        <BorderLinearProgress
+                          variant="determinate"
+                          value={progressValues.purina}
+                          thickness={50}
+                        />
+                      </div>
+                      <p>{progressValues.purina}%</p>
                     </div>
-                    <p>100%</p>
                   </div>
                 </div>
               </div>
@@ -83,15 +110,36 @@ const Dealer = () => {
                     <thead>
                       <tr className="item">
                         <td>Tu objetivo trimestral: </td>
-                        <td>600</td>
+                        <td>
+                          <NumberFormat
+                            value={7000}
+                            thousandSeparator={true}
+                            prefix={'$ '}
+                            displayType={'text'}
+                          />
+                        </td>
                       </tr>
                       <tr className="item">
                         <td>Resultado acumulado: </td>
-                        <td>300</td>
+                        <td>
+                          <NumberFormat
+                            value={1200}
+                            thousandSeparator={true}
+                            prefix={'$ '}
+                            displayType={'text'}
+                          />
+                        </td>
                       </tr>
                       <tr className="item last">
                         <td>Te falta: </td>
-                        <td>200</td>
+                        <td>
+                          <NumberFormat
+                            value={5800}
+                            thousandSeparator={true}
+                            prefix={'$ '}
+                            displayType={'text'}
+                          />
+                        </td>
                       </tr>
                     </thead>
                   </table>
@@ -100,15 +148,20 @@ const Dealer = () => {
                   <div className="award-visual__img">
                     <img src={OptiStart} alt={OptiStart} />
                   </div>
-                  <div className="progress__bar-container">
-                    <div>
-                      <BorderLinearProgress
-                        variant="determinate"
-                        value={30}
-                        thickness={50}
-                      />
+                  <div className="progress__bar">
+                    <p className="progress__quote">
+                      {useGetQuote(progressValues.ladrina)}
+                    </p>
+                    <div className="progress__bar-container">
+                      <div>
+                        <BorderLinearProgress
+                          variant="determinate"
+                          value={progressValues.ladrina}
+                          thickness={50}
+                        />
+                      </div>
+                      <p>{progressValues.ladrina}%</p>
                     </div>
-                    <p>30%</p>
                   </div>
                 </div>
               </div>
@@ -121,15 +174,36 @@ const Dealer = () => {
                     <thead>
                       <tr className="item">
                         <td>Tu objetivo trimestral: </td>
-                        <td>600</td>
+                        <td>
+                          <NumberFormat
+                            value={9000}
+                            thousandSeparator={true}
+                            prefix={'$ '}
+                            displayType={'text'}
+                          />
+                        </td>
                       </tr>
                       <tr className="item">
                         <td>Resultado acumulado: </td>
-                        <td>0</td>
+                        <td>
+                          <NumberFormat
+                            value={0}
+                            thousandSeparator={true}
+                            prefix={'$ '}
+                            displayType={'text'}
+                          />
+                        </td>
                       </tr>
                       <tr className="item last">
                         <td>Te falta: </td>
-                        <td>600</td>
+                        <td>
+                          <NumberFormat
+                            value={9000}
+                            thousandSeparator={true}
+                            prefix={'$ '}
+                            displayType={'text'}
+                          />
+                        </td>
                       </tr>
                     </thead>
                   </table>
@@ -146,15 +220,20 @@ const Dealer = () => {
                       />
                     </div>
                   </div>
-                  <div className="progress__bar-container">
-                    <div>
-                      <BorderLinearProgress
-                        variant="determinate"
-                        value={0}
-                        thickness={50}
-                      />
+                  <div className="progress__bar">
+                    <p className="progress__quote">
+                      {useGetQuote(progressValues.extra)}
+                    </p>
+                    <div className="progress__bar-container">
+                      <div>
+                        <BorderLinearProgress
+                          variant="determinate"
+                          value={progressValues.extra}
+                          thickness={50}
+                        />
+                      </div>
+                      <p>{progressValues.extra}%</p>
                     </div>
-                    <p>0%</p>
                   </div>
                 </div>
               </div>

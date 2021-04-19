@@ -54,6 +54,6 @@
   align-items: center;
 }
 
-.award-visual .progress__bar-container {
-  margin: 10px 0;
+.award-visual .progress__bar {
+  width: 100%;
 }

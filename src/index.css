@@ -28,7 +28,7 @@ code {
 
 .wrapper__body {
   flex: auto;
-  min-height: 80vh;
+  min-height: 70vh;
   width: 100%;
 }
 
