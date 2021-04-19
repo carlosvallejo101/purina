@@ -68,6 +68,7 @@ const Product = ({ image, data }) => {
             <button className="button button--success" onClick={handleSelect}>
               Quiero este premio
             </button>
+            <p onClick={handleClose}>Quiero ver los otros premios</p>
           </div>
         </div>
       </Modal>

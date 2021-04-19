@@ -22,6 +22,7 @@
   opacity: 0;
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
+  z-index: 999;
 }
 .product:hover:before {
   opacity: 1;
@@ -97,6 +98,15 @@
 
 .modal__bottom {
   margin: 0px 40px 30px 40px;
+}
+
+.modal__bottom p {
+  margin: 10px auto;
+  font-size: 13px;
+  width: fit-content;
+  color: rgb(77, 77, 77);
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 480px) {
