@@ -42,9 +42,18 @@ const Login = () => {
         history.push('/results');
       }
       if (data.roles.includes('User')) {
-        history.push('/home');
+        const { data: loggedUser } = await axios.get(
+          `${backend.url}/api/users/${data.id}`
+        );
+        const selectedGif = loggedUser.gift;
+        if (selectedGif) {
+          history.push('/progress');
+        } else {
+          history.push('/home');
+        }
       }
     } catch (e) {
+      console.log(e);
       setError('Usuario o Contraseña incorrectos');
     }
   };
