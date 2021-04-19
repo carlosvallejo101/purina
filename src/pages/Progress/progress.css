@@ -14,6 +14,10 @@
   margin: 0 auto;
 }
 
+.progress__data-left {
+  width: 100%;
+}
+
 .progress__data img {
   width: 100%;
 }
@@ -25,6 +29,7 @@
 
 .progress__button {
   width: 300px;
+  width: 100%;
   margin: 50px auto 0px auto;
 }
 
@@ -189,9 +194,14 @@
   }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 720px) {
   .progress {
     width: 60%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .progress {
+    width: 75%;
   }
 
   .progress__quote--white {
@@ -203,12 +213,15 @@
     width: 100%;
   }
 
+  .progress__data-left {
+    width: 1000px;
+  }
+
   .progress__data img {
-    width: 150%;
   }
 
   .progress__info {
     margin-top: 0;
-    margin-left: 200px;
+    margin-left: 100px;
   }
 }

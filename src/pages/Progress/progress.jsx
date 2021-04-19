@@ -86,11 +86,19 @@ const Progress = () => {
         <Wrapper>
           <div className="progress">
             <div className="progress__data">
-              <div>
+              <div className="progress__data-left">
                 <h3 className="progress__quote--white">
                   Tu esfuerzo se transformará en este premio:
                 </h3>
                 <img src={renderGift(data.gift)} alt={OptiAge} />
+                <div className="progress__button">
+                  <button
+                    className="button"
+                    onClick={() => history.push('/home')}
+                  >
+                    Quiero cambiar de premio
+                  </button>
+                </div>
               </div>
               <div className="card progress__info">
                 <h2 className="card__title">Tu Avance</h2>
@@ -170,11 +178,6 @@ const Progress = () => {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="progress__button">
-              <button className="button" onClick={() => history.push('/home')}>
-                Quiero cambiar de premio
-              </button>
             </div>
           </div>
         </Wrapper>
