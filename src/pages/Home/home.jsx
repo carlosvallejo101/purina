@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../auth/useAuth.jsx';
 
 import Normal from './Normal/normal.jsx';
-import Dealer from '../Dealer/dealer.jsx';
+import Support from './Support/support.jsx';
+import Dealer from './Dealer/dealer.jsx';
+import Results from '../Results/results.jsx';
 
 const Home = () => {
   const { user } = useAuth();
@@ -13,11 +15,11 @@ const Home = () => {
       case 'Normal':
         return <Normal />;
       case 'Support':
-        return <p>Support</p>;
+        return <Support />;
       case 'Dealer':
         return <Dealer />;
       default:
-        return <p>User2</p>;
+        return <Results />;
     }
   } else {
     return <p>Cargando</p>;

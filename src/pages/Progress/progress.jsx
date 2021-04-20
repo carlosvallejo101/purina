@@ -18,6 +18,13 @@ import OptiFit from '../../assets/img/optifit.png';
 import OptiFortis from '../../assets/img/optifortis.png';
 import OptiHealth from '../../assets/img/optihealth.png';
 import OptiStart from '../../assets/img/optistart.png';
+import OptiAgeSupport from '../../assets/img/optiage_support.png';
+import OptiDermaSupport from '../../assets/img/optiderma_support.png';
+import OptiEnrichSupport from '../../assets/img/optienrich_support.png';
+import OptiFitSupport from '../../assets/img/optifit_support.png';
+import OptiFortisSupport from '../../assets/img/optifortis_support.png';
+import OptiHealthSupport from '../../assets/img/optihealth_support.png';
+import OptiStartSupport from '../../assets/img/optistart_support.png';
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -81,7 +88,7 @@ const Progress = () => {
   }, [user]);
 
   return user ? (
-    user.roles.includes('Normal') ? (
+    user.roles.includes('Normal') || user.roles.includes('Support') ? (
       data ? (
         <Wrapper>
           <div className="progress">
@@ -208,6 +215,20 @@ const renderGift = (slug) => {
       return OptiHealth;
     case 'optistart':
       return OptiStart;
+    case 'optiage-support':
+      return OptiAgeSupport;
+    case 'optiderma-support':
+      return OptiDermaSupport;
+    case 'optienrich-support':
+      return OptiEnrichSupport;
+    case 'optifit-support':
+      return OptiFitSupport;
+    case 'optifortis-support':
+      return OptiFortisSupport;
+    case 'optihealth-support':
+      return OptiHealthSupport;
+    case 'optistart-support':
+      return OptiStartSupport;
     default:
       return OptiAge;
   }

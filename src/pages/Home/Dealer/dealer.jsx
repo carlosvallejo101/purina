@@ -4,11 +4,11 @@ import BeenhereIcon from '@material-ui/icons/Beenhere';
 import LockIcon from '@material-ui/icons/Lock';
 import NumberFormat from 'react-number-format';
 import { withStyles } from '@material-ui/core/styles';
-import { useGetQuote } from '../../helpers/hooks/useGetQuote';
+import { useGetQuote } from '../../../helpers/hooks/useGetQuote';
 import './dealer.css';
 
-import Wrapper from '../../components/Wrapper/wrapper.jsx';
-import OptiStart from '../../assets/img/optistart.png';
+import Wrapper from '../../../components/Wrapper/wrapper.jsx';
+import OptiStart from '../../../assets/img/optistart.png';
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
