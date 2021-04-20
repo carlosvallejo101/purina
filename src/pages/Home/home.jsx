@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useAuth } from '../../auth/useAuth.jsx';
 
 import Normal from './Normal/normal.jsx';
