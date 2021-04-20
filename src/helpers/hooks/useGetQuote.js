@@ -4,7 +4,10 @@ export const useGetQuote = (value) => {
   const [quote, setQuote] = useState('');
 
   useEffect(() => {
-    if (value < 10) {
+    if (value === 0) {
+      setQuote('Estaremos pendientes de tu progreso');
+    }
+    if (value >= 1 && value < 10) {
       setQuote('Apenas empiezas, ¡Ánimo!');
     }
     if (value >= 10 && value < 40) {
