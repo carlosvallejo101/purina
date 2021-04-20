@@ -34,10 +34,10 @@ const Dealer = () => {
 
   return (
     <Wrapper>
-      <div className="progress">
+      <div className="dealer">
         <div className="progress__data">
-          <div className="card progress__info">
-            <h2 className="card__title">Tu Avance</h2>
+          <div className="card progress__info card--dealer">
+            <h2 className="card__title card__title--white">Tu Avance</h2>
             <div className="dealer-awards">
               <div className="award-container">
                 <h3>Purina</h3>
@@ -73,6 +73,49 @@ const Dealer = () => {
                         </tr>
                       </thead>
                     </table>
+                    <div className="invoice-box">
+                      <table cellPadding={0} cellSpacing={0}>
+                        <thead>
+                          <tr className="heading">
+                            <td>Mes</td>
+                            <td>Resultado</td>
+                          </tr>
+                          <tr className="item">
+                            <td>Abril</td>
+                            <td>
+                              <NumberFormat
+                                value={2000}
+                                thousandSeparator={true}
+                                prefix={'$ '}
+                                displayType={'text'}
+                              />
+                            </td>
+                          </tr>
+                          <tr className="item">
+                            <td>Mayo</td>
+                            <td>
+                              <NumberFormat
+                                value={2000}
+                                thousandSeparator={true}
+                                prefix={'$ '}
+                                displayType={'text'}
+                              />
+                            </td>
+                          </tr>
+                          <tr className="item">
+                            <td>Junio</td>
+                            <td>
+                              <NumberFormat
+                                value={2000}
+                                thousandSeparator={true}
+                                prefix={'$ '}
+                                displayType={'text'}
+                              />
+                            </td>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
                   </div>
                   <div className="award-visual">
                     <div className="award-visual__img">
@@ -86,7 +129,7 @@ const Dealer = () => {
                         />
                       </div>
                     </div>
-                    <div className="progress__bar">
+                    <div className="progress__bar progress__bar--dealer">
                       <p className="progress__quote">
                         {useGetQuote(progressValues.purina)}
                       </p>
@@ -145,6 +188,49 @@ const Dealer = () => {
                         </tr>
                       </thead>
                     </table>
+                    <div className="invoice-box">
+                      <table cellPadding={0} cellSpacing={0}>
+                        <thead>
+                          <tr className="heading">
+                            <td>Mes</td>
+                            <td>Resultado</td>
+                          </tr>
+                          <tr className="item">
+                            <td>Abril</td>
+                            <td>
+                              <NumberFormat
+                                value={1200}
+                                thousandSeparator={true}
+                                prefix={'$ '}
+                                displayType={'text'}
+                              />
+                            </td>
+                          </tr>
+                          <tr className="item">
+                            <td>Mayo</td>
+                            <td>
+                              <NumberFormat
+                                value={0}
+                                thousandSeparator={true}
+                                prefix={'$ '}
+                                displayType={'text'}
+                              />
+                            </td>
+                          </tr>
+                          <tr className="item">
+                            <td>Junio</td>
+                            <td>
+                              <NumberFormat
+                                value={0}
+                                thousandSeparator={true}
+                                prefix={'$ '}
+                                displayType={'text'}
+                              />
+                            </td>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
                   </div>
                   <div className="award-visual">
                     <div className="award-visual__img">
@@ -209,6 +295,49 @@ const Dealer = () => {
                         </tr>
                       </thead>
                     </table>
+                    <div className="invoice-box">
+                      <table cellPadding={0} cellSpacing={0}>
+                        <thead>
+                          <tr className="heading">
+                            <td>Mes</td>
+                            <td>Resultado</td>
+                          </tr>
+                          <tr className="item">
+                            <td>Abril</td>
+                            <td>
+                              <NumberFormat
+                                value={0}
+                                thousandSeparator={true}
+                                prefix={'$ '}
+                                displayType={'text'}
+                              />
+                            </td>
+                          </tr>
+                          <tr className="item">
+                            <td>Mayo</td>
+                            <td>
+                              <NumberFormat
+                                value={0}
+                                thousandSeparator={true}
+                                prefix={'$ '}
+                                displayType={'text'}
+                              />
+                            </td>
+                          </tr>
+                          <tr className="item">
+                            <td>Junio</td>
+                            <td>
+                              <NumberFormat
+                                value={0}
+                                thousandSeparator={true}
+                                prefix={'$ '}
+                                displayType={'text'}
+                              />
+                            </td>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
                   </div>
                   <div className="award-visual">
                     <div className="award-visual__img">
