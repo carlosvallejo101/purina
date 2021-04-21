@@ -280,25 +280,35 @@ const Objetivos = () => {
     </Paper>
   );
 };
-
 const Resultados = () => {
-  const [rows, setRows] = React.useState([
-    createData('Usuario 1', 159, 0, 0, 6878, 789),
-    createData('Usuario 2', 237, 0, 0, 3215, 789),
-    createData('Usuario 3', 262, 0, 0, 5434, 789),
-    createData('Usuario 4', 262, 0, 0, 9873, 789),
-    createData('Usuario 5', 262, 0, 0, 3548, 789),
-    createData('Usuario 6', 262, 0, 0, 9874, 789),
-    createData('Usuario 7', 262, 0, 0, 3458, 789),
-    createData('Usuario 8', 262, 0, 0, 9843, 789),
-    createData('Usuario 9', 262, 0, 0, 8743, 789),
-    createData('Usuario 10', 262, 0, 0, 9842, 789),
-    createData('Usuario 11', 262, 0, 0, 4324, 789),
-  ]);
+  const [rows, setRows] = React.useState([]);
   const [previous, setPrevious] = React.useState({});
   const classes = useStyles();
 
-  const onToggleEditMode = (id) => {
+  useEffect(() => {
+    async function getUsers() {
+      const { data: users } = await axios.get(
+        `${backend.url}/api/users/normal`
+      );
+      users.map((user) => {
+        return setRows((prevState) => {
+          return [
+            ...prevState,
+            createData({
+              id: user._id,
+              name: user.name,
+              month1: user.resultsNormalSupport[0].value,
+              month2: user.resultsNormalSupport[1].value,
+              month3: user.resultsNormalSupport[2].value,
+            }),
+          ];
+        });
+      });
+    }
+    getUsers();
+  }, []);
+
+  const onToggleEditMode = async (id, isSaving = false, row = null) => {
     setRows((state) => {
       return rows.map((row) => {
         if (row.id === id) {
@@ -307,6 +317,30 @@ const Resultados = () => {
         return row;
       });
     });
+    if (isSaving) {
+      try {
+        await axios.patch(`${backend.url}/api/users`, {
+          id: row.id,
+          month: 'Abril',
+          value: row[`month1`].toString().replace(/\$|,/g, ''),
+          type: 'results',
+        });
+        await axios.patch(`${backend.url}/api/users`, {
+          id: row.id,
+          month: 'Mayo',
+          value: row[`month2`].toString().replace(/\$|,/g, ''),
+          type: 'results',
+        });
+        await axios.patch(`${backend.url}/api/users`, {
+          id: row.id,
+          month: 'Junio',
+          value: row[`month3`].toString().replace(/\$|,/g, ''),
+          type: 'results',
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }
   };
 
   const onChange = (e, row) => {
@@ -317,8 +351,33 @@ const Resultados = () => {
     const name = e.target.name;
     const { id } = row;
     const newRows = rows.map((row) => {
+      const newValue = value !== '' ? value : 0;
+      let newTotal = 0;
+      if (name === 'month1') {
+        newTotal =
+          parseInt(newValue.toString().replace(/\$|,/g, '')) +
+          parseInt(row['month2'].toString().replace(/\$|,/g, '')) +
+          parseInt(row['month3'].toString().replace(/\$|,/g, ''));
+      }
+      if (name === 'month2') {
+        newTotal =
+          parseInt(newValue.toString().replace(/\$|,/g, '')) +
+          parseInt(row['month1'].toString().replace(/\$|,/g, '')) +
+          parseInt(row['month3'].toString().replace(/\$|,/g, ''));
+      }
+      if (name === 'month3') {
+        newTotal =
+          parseInt(newValue.toString().replace(/\$|,/g, '')) +
+          parseInt(row['month1'].toString().replace(/\$|,/g, '')) +
+          parseInt(row['month2'].toString().replace(/\$|,/g, ''));
+      }
+
       if (row.id === id) {
-        return { ...row, [name]: value };
+        return {
+          ...row,
+          [name]: value,
+          total: newTotal,
+        };
       }
       return row;
     });
@@ -350,8 +409,7 @@ const Resultados = () => {
             <TableCell align="left">Abril</TableCell>
             <TableCell align="left">Mayo</TableCell>
             <TableCell align="left">Junio</TableCell>
-            <TableCell align="left">Objetivo</TableCell>
-            <TableCell align="left">Restante</TableCell>
+            <TableCell align="left">Resultado Alcanzado</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -362,7 +420,7 @@ const Resultados = () => {
                   <>
                     <IconButton
                       aria-label="done"
-                      onClick={() => onToggleEditMode(row.id)}
+                      onClick={() => onToggleEditMode(row.id, true, row)}
                     >
                       <DoneIcon />
                     </IconButton>
@@ -383,11 +441,10 @@ const Resultados = () => {
                 )}
               </TableCell>
               <CustomTableCell {...{ row, name: 'name', onChange }} />
-              <CustomTableCell {...{ row, name: 'calories', onChange }} />
-              <CustomTableCell {...{ row, name: 'fat', onChange }} />
-              <CustomTableCell {...{ row, name: 'carbs', onChange }} />
-              <CustomTableCell {...{ row, name: 'protein', onChange }} />
-              <CustomTableCell {...{ row, name: 'restante', onChange }} />
+              <CustomTableCell {...{ row, name: 'month1', onChange }} />
+              <CustomTableCell {...{ row, name: 'month2', onChange }} />
+              <CustomTableCell {...{ row, name: 'month3', onChange }} />
+              <CustomTableCell {...{ row, name: 'total', onChange }} />
             </TableRow>
           ))}
         </TableBody>
