@@ -70,17 +70,26 @@
 .award-visual__hover {
   width: 100%;
   height: 100%;
-  background: radial-gradient(
-    circle,
-    rgba(0, 0, 0, 0.8) 63%,
-    rgba(0, 0, 0, 0.5) 100%
-  );
   position: absolute;
   top: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
+}
+
+.award-visual__hover--locked {
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.5) 63%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+
+.award-visual__hover svg {
+  position: absolute;
+  top: -10px;
+  right: 0px;
 }
 
 .award-visual .progress__bar {

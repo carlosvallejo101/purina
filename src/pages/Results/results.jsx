@@ -12,7 +12,7 @@ const Results = () => {
   const { user } = useAuth();
   const classTitle = 'tabs__title';
   const classTitleActive = 'tabs__title tabs-full__title--active';
-  const [currentTab, setCurrentTab] = useState('Dealer');
+  const [currentTab, setCurrentTab] = useState('Normal');
 
   const toggleTab = () => {
     switch (currentTab) {

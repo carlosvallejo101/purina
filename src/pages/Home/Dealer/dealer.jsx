@@ -221,7 +221,7 @@ const Dealer = () => {
                           />
                         </div>
                       ) : (
-                        <div className="award-visual__hover">
+                        <div className="award-visual__hover award-visual__hover--locked">
                           <LockIcon
                             style={{
                               fill: '#c53333',
@@ -336,7 +336,7 @@ const Dealer = () => {
                           />
                         </div>
                       ) : (
-                        <div className="award-visual__hover">
+                        <div className="award-visual__hover award-visual__hover--locked">
                           <LockIcon
                             style={{
                               fill: '#c53333',
@@ -448,7 +448,7 @@ const Dealer = () => {
                           />
                         </div>
                       ) : (
-                        <div className="award-visual__hover">
+                        <div className="award-visual__hover award-visual__hover--locked">
                           <LockIcon
                             style={{
                               fill: '#c53333',
