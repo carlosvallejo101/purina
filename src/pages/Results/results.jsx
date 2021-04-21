@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const createData = ({ id, name, month1, month2, month3 }) => ({
-  id: name.replace(' ', '_'),
+  id,
   name,
   month1,
   month2,
@@ -136,9 +136,7 @@ const Objetivos = () => {
     getUsers();
   }, []);
 
-  // console.log('rows', rows);
-
-  const onToggleEditMode = (id) => {
+  const onToggleEditMode = async (id, isSaving = false, row = null) => {
     setRows((state) => {
       return rows.map((row) => {
         if (row.id === id) {
@@ -147,6 +145,30 @@ const Objetivos = () => {
         return row;
       });
     });
+    if (isSaving) {
+      try {
+        await axios.patch(`${backend.url}/api/users`, {
+          id: row.id,
+          month: 'Abril',
+          value: row[`month1`].toString().replace(/\$|,/g, ''),
+          type: 'objectives',
+        });
+        await axios.patch(`${backend.url}/api/users`, {
+          id: row.id,
+          month: 'Mayo',
+          value: row[`month2`].toString().replace(/\$|,/g, ''),
+          type: 'objectives',
+        });
+        await axios.patch(`${backend.url}/api/users`, {
+          id: row.id,
+          month: 'Junio',
+          value: row[`month3`].toString().replace(/\$|,/g, ''),
+          type: 'objectives',
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }
   };
 
   const onChange = (e, row) => {
@@ -157,7 +179,6 @@ const Objetivos = () => {
     const name = e.target.name;
     const { id } = row;
     const newRows = rows.map((row) => {
-      console.log('value', value);
       const newValue = value !== '' ? value : 0;
       let newTotal = 0;
       if (name === 'month1') {
@@ -227,7 +248,7 @@ const Objetivos = () => {
                   <>
                     <IconButton
                       aria-label="done"
-                      onClick={() => onToggleEditMode(row.id)}
+                      onClick={() => onToggleEditMode(row.id, true, row)}
                     >
                       <DoneIcon />
                     </IconButton>
@@ -379,8 +400,6 @@ const CustomTableCell = ({ row, name, onChange }) => {
   const classes = useStyles();
   const { isEditMode } = row;
   let isAnEditableValue = true;
-  // console.log('name', name);
-  // console.log('row[name]', row[name]);
   if (name === 'name' || name === 'total') isAnEditableValue = false;
   return (
     <TableCell align="left" className={classes.tableCell}>
