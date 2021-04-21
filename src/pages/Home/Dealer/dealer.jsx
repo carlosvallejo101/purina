@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import BeenhereIcon from '@material-ui/icons/Beenhere';
 import LockIcon from '@material-ui/icons/Lock';
@@ -6,6 +6,9 @@ import NumberFormat from 'react-number-format';
 import { withStyles } from '@material-ui/core/styles';
 import { useGetQuote } from '../../../helpers/hooks/useGetQuote';
 import './dealer.css';
+import axios from 'axios';
+import { backend } from '../../../config';
+import { useAuth } from '../../../auth/useAuth.jsx';
 
 import Wrapper from '../../../components/Wrapper/wrapper.jsx';
 import OptiStart from '../../../assets/img/optistart.png';
@@ -26,13 +29,27 @@ const BorderLinearProgress = withStyles((theme) => ({
 }))(LinearProgress);
 
 const Dealer = () => {
+  const { user } = useAuth();
+  const [data, setData] = useState(null);
   const [progressValues] = useState({
     purina: 100,
     ladrina: 30,
     extra: 0,
   });
 
-  return (
+  useEffect(() => {
+    async function getUserInfo() {
+      if (user) {
+        const { data } = await axios.get(`${backend.url}/api/users/${user.id}`);
+        setData({
+          ...data,
+        });
+      }
+    }
+    getUserInfo();
+  }, [user]);
+
+  return data ? (
     <Wrapper>
       <div className="dealer">
         <div className="progress__data">
@@ -80,39 +97,28 @@ const Dealer = () => {
                             <td>Mes</td>
                             <td>Resultado</td>
                           </tr>
-                          <tr className="item">
-                            <td>Abril</td>
-                            <td>
-                              <NumberFormat
-                                value={2000}
-                                thousandSeparator={true}
-                                prefix={'$ '}
-                                displayType={'text'}
-                              />
-                            </td>
-                          </tr>
-                          <tr className="item">
-                            <td>Mayo</td>
-                            <td>
-                              <NumberFormat
-                                value={2000}
-                                thousandSeparator={true}
-                                prefix={'$ '}
-                                displayType={'text'}
-                              />
-                            </td>
-                          </tr>
-                          <tr className="item">
-                            <td>Junio</td>
-                            <td>
-                              <NumberFormat
-                                value={2000}
-                                thousandSeparator={true}
-                                prefix={'$ '}
-                                displayType={'text'}
-                              />
-                            </td>
-                          </tr>
+                          {data.resultsDealer.purina.map((result, index) => {
+                            let resultClassName = 'item';
+                            if (
+                              index ===
+                              data.resultsDealer.purina.length - 1
+                            ) {
+                              resultClassName = 'item last';
+                            }
+                            return (
+                              <tr className={resultClassName} key={index}>
+                                <td>{result.month}</td>
+                                <td>
+                                  <NumberFormat
+                                    value={result.value}
+                                    thousandSeparator={true}
+                                    prefix={'$ '}
+                                    displayType={'text'}
+                                  />
+                                </td>
+                              </tr>
+                            );
+                          })}
                         </thead>
                       </table>
                     </div>
@@ -131,7 +137,8 @@ const Dealer = () => {
                     </div>
                     <div className="progress__bar progress__bar--dealer">
                       <p className="progress__quote">
-                        {useGetQuote(progressValues.purina)}
+                        {/* {useGetQuote(progressValues.purina)} */}
+                        Testing
                       </p>
                       <div className="progress__bar-container">
                         <div>
@@ -195,39 +202,28 @@ const Dealer = () => {
                             <td>Mes</td>
                             <td>Resultado</td>
                           </tr>
-                          <tr className="item">
-                            <td>Abril</td>
-                            <td>
-                              <NumberFormat
-                                value={1200}
-                                thousandSeparator={true}
-                                prefix={'$ '}
-                                displayType={'text'}
-                              />
-                            </td>
-                          </tr>
-                          <tr className="item">
-                            <td>Mayo</td>
-                            <td>
-                              <NumberFormat
-                                value={0}
-                                thousandSeparator={true}
-                                prefix={'$ '}
-                                displayType={'text'}
-                              />
-                            </td>
-                          </tr>
-                          <tr className="item">
-                            <td>Junio</td>
-                            <td>
-                              <NumberFormat
-                                value={0}
-                                thousandSeparator={true}
-                                prefix={'$ '}
-                                displayType={'text'}
-                              />
-                            </td>
-                          </tr>
+                          {data.resultsDealer.ladrina.map((result, index) => {
+                            let resultClassName = 'item';
+                            if (
+                              index ===
+                              data.resultsDealer.ladrina.length - 1
+                            ) {
+                              resultClassName = 'item last';
+                            }
+                            return (
+                              <tr className={resultClassName} key={index}>
+                                <td>{result.month}</td>
+                                <td>
+                                  <NumberFormat
+                                    value={result.value}
+                                    thousandSeparator={true}
+                                    prefix={'$ '}
+                                    displayType={'text'}
+                                  />
+                                </td>
+                              </tr>
+                            );
+                          })}
                         </thead>
                       </table>
                     </div>
@@ -238,7 +234,8 @@ const Dealer = () => {
                     </div>
                     <div className="progress__bar">
                       <p className="progress__quote">
-                        {useGetQuote(progressValues.ladrina)}
+                        {/* {useGetQuote(progressValues.ladrina)} */}
+                        Testing 2
                       </p>
                       <div className="progress__bar-container">
                         <div>
@@ -255,7 +252,7 @@ const Dealer = () => {
                 </div>
               </div>
               <div className="award-container">
-                <h3>Extra</h3>
+                <h3>Gatsy</h3>
                 <div className="award-info">
                   <div className="award-progress">
                     <table className="award-table">
@@ -302,39 +299,25 @@ const Dealer = () => {
                             <td>Mes</td>
                             <td>Resultado</td>
                           </tr>
-                          <tr className="item">
-                            <td>Abril</td>
-                            <td>
-                              <NumberFormat
-                                value={0}
-                                thousandSeparator={true}
-                                prefix={'$ '}
-                                displayType={'text'}
-                              />
-                            </td>
-                          </tr>
-                          <tr className="item">
-                            <td>Mayo</td>
-                            <td>
-                              <NumberFormat
-                                value={0}
-                                thousandSeparator={true}
-                                prefix={'$ '}
-                                displayType={'text'}
-                              />
-                            </td>
-                          </tr>
-                          <tr className="item">
-                            <td>Junio</td>
-                            <td>
-                              <NumberFormat
-                                value={0}
-                                thousandSeparator={true}
-                                prefix={'$ '}
-                                displayType={'text'}
-                              />
-                            </td>
-                          </tr>
+                          {data.resultsDealer.gatsy.map((result, index) => {
+                            let resultClassName = 'item';
+                            if (index === data.resultsDealer.gatsy.length - 1) {
+                              resultClassName = 'item last';
+                            }
+                            return (
+                              <tr className={resultClassName} key={index}>
+                                <td>{result.month}</td>
+                                <td>
+                                  <NumberFormat
+                                    value={result.value}
+                                    thousandSeparator={true}
+                                    prefix={'$ '}
+                                    displayType={'text'}
+                                  />
+                                </td>
+                              </tr>
+                            );
+                          })}
                         </thead>
                       </table>
                     </div>
@@ -353,7 +336,8 @@ const Dealer = () => {
                     </div>
                     <div className="progress__bar">
                       <p className="progress__quote">
-                        {useGetQuote(progressValues.extra)}
+                        {/* {useGetQuote(progressValues.extra)} */}
+                        Testing 3
                       </p>
                       <div className="progress__bar-container">
                         <div>
@@ -374,6 +358,8 @@ const Dealer = () => {
         </div>
       </div>
     </Wrapper>
+  ) : (
+    <p>Cargando...</p>
   );
 };
 
