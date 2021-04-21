@@ -7,7 +7,7 @@ import { useAuth } from '../../auth/useAuth.jsx';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import { backend } from '../../config';
-import { useGetQuote } from '../../helpers/hooks/useGetQuote';
+import { getQuote } from '../../helpers/getQuote';
 
 import Wrapper from '../../components/Wrapper/wrapper.jsx';
 import Home from '../Home/home.jsx';
@@ -73,7 +73,7 @@ const Progress = () => {
     getGift();
   }, [user]);
 
-  let quote = useGetQuote(progressValue);
+  // let quote = useGetQuote(progressValue);
 
   return user ? (
     user.roles.includes('Normal') || user.roles.includes('Support') ? (
@@ -160,7 +160,9 @@ const Progress = () => {
                   </table>
                 </div>
                 <div className="progress__bar">
-                  <p className="progress__quote">{quote}</p>
+                  <p className="progress__quote">
+                    {getQuote(parseInt(progressValue))}
+                  </p>
                   <div className="progress__bar-container">
                     <div>
                       <BorderLinearProgress

@@ -4,7 +4,7 @@ import BeenhereIcon from '@material-ui/icons/Beenhere';
 import LockIcon from '@material-ui/icons/Lock';
 import NumberFormat from 'react-number-format';
 import { withStyles } from '@material-ui/core/styles';
-import { useGetQuote } from '../../../helpers/hooks/useGetQuote';
+import { getQuote } from '../../../helpers/getQuote';
 import './dealer.css';
 import axios from 'axios';
 import { backend } from '../../../config';
@@ -127,8 +127,6 @@ const Dealer = () => {
     getUserInfo();
   }, [user]);
 
-  console.log(wasObjectiveReached);
-
   return data ? (
     <Wrapper>
       <div className="dealer">
@@ -235,8 +233,7 @@ const Dealer = () => {
                     </div>
                     <div className="progress__bar progress__bar--dealer">
                       <p className="progress__quote">
-                        {/* {useGetQuote(progressValues.purina)} */}
-                        Testing
+                        {getQuote(progressValues.purina)}
                       </p>
                       <div className="progress__bar-container">
                         <div>
@@ -351,8 +348,7 @@ const Dealer = () => {
                     </div>
                     <div className="progress__bar">
                       <p className="progress__quote">
-                        {/* {useGetQuote(progressValues.ladrina)} */}
-                        Testing 2
+                        {getQuote(progressValues.ladrina)}
                       </p>
                       <div className="progress__bar-container">
                         <div>
@@ -464,8 +460,7 @@ const Dealer = () => {
                     </div>
                     <div className="progress__bar">
                       <p className="progress__quote">
-                        {/* {useGetQuote(progressValues.extra)} */}
-                        Testing 3
+                        {getQuote(progressValues.gatsy)}
                       </p>
                       <div className="progress__bar-container">
                         <div>
