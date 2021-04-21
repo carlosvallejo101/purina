@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './results.css';
 import { useAuth } from '../../auth/useAuth.jsx';
+import NumberFormat from 'react-number-format';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -41,14 +42,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const createData = (name, calories, fat, carbs, protein, restante) => ({
+const createData = ({ id, name, month1, month2, month3 }) => ({
   id: name.replace(' ', '_'),
   name,
-  calories,
-  fat,
-  carbs,
-  protein: calories + fat + carbs,
-  restante,
+  month1,
+  month2,
+  month3,
+  total: month1 + month2 + month3,
   isEditMode: false,
 });
 
@@ -108,17 +108,13 @@ const Results = () => {
 
 const Objetivos = () => {
   const [rows, setRows] = React.useState([
-    createData('Usuario 1', 159, 0, 0, 6878),
-    createData('Usuario 2', 237, 0, 0, 3215),
-    createData('Usuario 3', 262, 0, 0, 5434),
-    createData('Usuario 4', 262, 0, 0, 9873),
-    createData('Usuario 5', 262, 0, 0, 3548),
-    createData('Usuario 6', 262, 0, 0, 9874),
-    createData('Usuario 7', 262, 0, 0, 3458),
-    createData('Usuario 8', 262, 0, 0, 9843),
-    createData('Usuario 9', 262, 0, 0, 8743),
-    createData('Usuario 10', 262, 0, 0, 9842),
-    createData('Usuario 11', 262, 0, 0, 4324),
+    createData({
+      id: 1,
+      name: 'Test 1',
+      month1: 1,
+      month2: 2,
+      month3: 3,
+    }),
   ]);
   const [previous, setPrevious] = React.useState({});
   const classes = useStyles();
@@ -142,8 +138,34 @@ const Objetivos = () => {
     const name = e.target.name;
     const { id } = row;
     const newRows = rows.map((row) => {
+      console.log('value', value);
+      const newValue = value !== '' ? value : 0;
+      let newTotal = 0;
+      if (name === 'month1') {
+        newTotal =
+          parseInt(newValue.toString().replace(/\$/g, '')) +
+          parseInt(row['month2'].toString().replace(/\$/g, '')) +
+          parseInt(row['month3'].toString().replace(/\$/g, ''));
+      }
+      if (name === 'month2') {
+        newTotal =
+          parseInt(newValue.toString().replace(/\$/g, '')) +
+          parseInt(row['month1'].toString().replace(/\$/g, '')) +
+          parseInt(row['month3'].toString().replace(/\$/g, ''));
+      }
+      if (name === 'month3') {
+        newTotal =
+          parseInt(newValue.toString().replace(/\$/g, '')) +
+          parseInt(row['month1'].toString().replace(/\$/g, '')) +
+          parseInt(row['month2'].toString().replace(/\$/g, ''));
+      }
+
       if (row.id === id) {
-        return { ...row, [name]: value };
+        return {
+          ...row,
+          [name]: value,
+          total: newTotal,
+        };
       }
       return row;
     });
@@ -175,7 +197,7 @@ const Objetivos = () => {
             <TableCell align="left">Abril</TableCell>
             <TableCell align="left">Mayo</TableCell>
             <TableCell align="left">Junio</TableCell>
-            <TableCell align="left">Total</TableCell>
+            <TableCell align="left">Objetivo Trimestral</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -207,10 +229,10 @@ const Objetivos = () => {
                 )}
               </TableCell>
               <CustomTableCell {...{ row, name: 'name', onChange }} />
-              <CustomTableCell {...{ row, name: 'calories', onChange }} />
-              <CustomTableCell {...{ row, name: 'fat', onChange }} />
-              <CustomTableCell {...{ row, name: 'carbs', onChange }} />
-              <CustomTableCell {...{ row, name: 'protein', onChange }} />
+              <CustomTableCell {...{ row, name: 'month1', onChange }} />
+              <CustomTableCell {...{ row, name: 'month2', onChange }} />
+              <CustomTableCell {...{ row, name: 'month3', onChange }} />
+              <CustomTableCell {...{ row, name: 'total', onChange }} />
             </TableRow>
           ))}
         </TableBody>
@@ -337,17 +359,35 @@ const Resultados = () => {
 const CustomTableCell = ({ row, name, onChange }) => {
   const classes = useStyles();
   const { isEditMode } = row;
+  let isAnEditableValue = true;
+  // console.log('name', name);
+  // console.log('row[name]', row[name]);
+  if (name === 'name' || name === 'total') isAnEditableValue = false;
   return (
     <TableCell align="left" className={classes.tableCell}>
-      {isEditMode ? (
-        <Input
+      {isEditMode && isAnEditableValue ? (
+        <NumberFormat
           value={row[name]}
+          thousandSeparator={true}
+          prefix={'$ '}
+          displayType={'input'}
+          className={classes.input}
           name={name}
           onChange={(e) => onChange(e, row)}
-          className={classes.input}
+          style={{ border: 'none', borderBottom: '1px solid #d8b414' }}
         />
-      ) : (
+      ) : name === 'name' ? (
         row[name]
+      ) : (
+        <NumberFormat
+          value={row[name]}
+          thousandSeparator={true}
+          prefix={'$ '}
+          displayType={'text'}
+          name={name}
+          onChange={(e) => onChange(e, row)}
+          style={{ border: 'none' }}
+        />
       )}
     </TableCell>
   );
