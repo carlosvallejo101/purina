@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './results.css';
 import { useAuth } from '../../auth/useAuth.jsx';
 import NumberFormat from 'react-number-format';
@@ -9,7 +9,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Input from '@material-ui/core/Input';
+// import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 // Icons
@@ -19,6 +19,8 @@ import RevertIcon from '@material-ui/icons/NotInterestedOutlined';
 
 import Wrapper from '../../components/Wrapper/wrapper.jsx';
 import Home from '../Home/home.jsx';
+import axios from 'axios';
+import { backend } from '../../config';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -107,17 +109,34 @@ const Results = () => {
 };
 
 const Objetivos = () => {
-  const [rows, setRows] = React.useState([
-    createData({
-      id: 1,
-      name: 'Test 1',
-      month1: 1,
-      month2: 2,
-      month3: 3,
-    }),
-  ]);
+  const [rows, setRows] = React.useState([]);
   const [previous, setPrevious] = React.useState({});
   const classes = useStyles();
+
+  useEffect(() => {
+    async function getUsers() {
+      const { data: users } = await axios.get(
+        `${backend.url}/api/users/normal`
+      );
+      users.map((user) => {
+        return setRows((prevState) => {
+          return [
+            ...prevState,
+            createData({
+              id: user._id,
+              name: user.name,
+              month1: user.objectivesNormalSupport[0].value,
+              month2: user.objectivesNormalSupport[1].value,
+              month3: user.objectivesNormalSupport[2].value,
+            }),
+          ];
+        });
+      });
+    }
+    getUsers();
+  }, []);
+
+  // console.log('rows', rows);
 
   const onToggleEditMode = (id) => {
     setRows((state) => {
@@ -143,21 +162,21 @@ const Objetivos = () => {
       let newTotal = 0;
       if (name === 'month1') {
         newTotal =
-          parseInt(newValue.toString().replace(/\$/g, '')) +
-          parseInt(row['month2'].toString().replace(/\$/g, '')) +
-          parseInt(row['month3'].toString().replace(/\$/g, ''));
+          parseInt(newValue.toString().replace(/\$|,/g, '')) +
+          parseInt(row['month2'].toString().replace(/\$|,/g, '')) +
+          parseInt(row['month3'].toString().replace(/\$|,/g, ''));
       }
       if (name === 'month2') {
         newTotal =
-          parseInt(newValue.toString().replace(/\$/g, '')) +
-          parseInt(row['month1'].toString().replace(/\$/g, '')) +
-          parseInt(row['month3'].toString().replace(/\$/g, ''));
+          parseInt(newValue.toString().replace(/\$|,/g, '')) +
+          parseInt(row['month1'].toString().replace(/\$|,/g, '')) +
+          parseInt(row['month3'].toString().replace(/\$|,/g, ''));
       }
       if (name === 'month3') {
         newTotal =
-          parseInt(newValue.toString().replace(/\$/g, '')) +
-          parseInt(row['month1'].toString().replace(/\$/g, '')) +
-          parseInt(row['month2'].toString().replace(/\$/g, ''));
+          parseInt(newValue.toString().replace(/\$|,/g, '')) +
+          parseInt(row['month1'].toString().replace(/\$|,/g, '')) +
+          parseInt(row['month2'].toString().replace(/\$|,/g, ''));
       }
 
       if (row.id === id) {
