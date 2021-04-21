@@ -231,7 +231,7 @@ const Objetivos = () => {
               value: row[`ladrinaMonth3`].toString().replace(/\$|,/g, ''),
             },
           ],
-          category: 'purina',
+          category: 'ladrina',
           type: 'objectives',
         });
         await axios.patch(`${backend.url}/api/users`, {
@@ -253,7 +253,7 @@ const Objetivos = () => {
               value: row[`gatsyMonth2`].toString().replace(/\$|,/g, ''),
             },
           ],
-          category: 'purina',
+          category: 'gatsy',
           type: 'objectives',
         });
         await axios.patch(`${backend.url}/api/users`, {
@@ -428,7 +428,7 @@ const Resultados = () => {
   useEffect(() => {
     async function getUsers() {
       const { data: users } = await axios.get(
-        `${backend.url}/api/users/normal`
+        `${backend.url}/api/users/dealer`
       );
       users.map((user) => {
         return setRows((prevState) => {
@@ -437,9 +437,15 @@ const Resultados = () => {
             createData({
               id: user._id,
               name: user.name,
-              month1: user.resultsNormalSupport[0].value,
-              month2: user.resultsNormalSupport[1].value,
-              month3: user.resultsNormalSupport[2].value,
+              purinaMonth1: user.resultsDealer.purina[0].value,
+              purinaMonth2: user.resultsDealer.purina[1].value,
+              purinaMonth3: user.resultsDealer.purina[2].value,
+              ladrinaMonth1: user.resultsDealer.ladrina[0].value,
+              ladrinaMonth2: user.resultsDealer.ladrina[1].value,
+              ladrinaMonth3: user.resultsDealer.ladrina[2].value,
+              gatsyMonth1: user.resultsDealer.gatsy[0].value,
+              gatsyMonth2: user.resultsDealer.gatsy[1].value,
+              gatsyMonth3: user.resultsDealer.gatsy[2].value,
             }),
           ];
         });
@@ -461,20 +467,101 @@ const Resultados = () => {
       try {
         await axios.patch(`${backend.url}/api/users`, {
           id: row.id,
-          month: 'Abril',
-          value: row[`month1`].toString().replace(/\$|,/g, ''),
+          purina: [
+            {
+              month: 'Abril',
+              value: row[`purinaMonth1`].toString().replace(/\$|,/g, ''),
+            },
+          ],
+          category: 'purina',
           type: 'results',
         });
         await axios.patch(`${backend.url}/api/users`, {
           id: row.id,
-          month: 'Mayo',
-          value: row[`month2`].toString().replace(/\$|,/g, ''),
+          purina: [
+            {
+              month: 'Mayo',
+              value: row[`purinaMonth2`].toString().replace(/\$|,/g, ''),
+            },
+          ],
+          category: 'purina',
           type: 'results',
         });
         await axios.patch(`${backend.url}/api/users`, {
           id: row.id,
-          month: 'Junio',
-          value: row[`month3`].toString().replace(/\$|,/g, ''),
+          purina: [
+            {
+              month: 'Junio',
+              value: row[`purinaMonth3`].toString().replace(/\$|,/g, ''),
+            },
+          ],
+          category: 'purina',
+          type: 'results',
+        });
+        await axios.patch(`${backend.url}/api/users`, {
+          id: row.id,
+          ladrina: [
+            {
+              month: 'Abril',
+              value: row[`ladrinaMonth1`].toString().replace(/\$|,/g, ''),
+            },
+          ],
+          category: 'ladrina',
+          type: 'results',
+        });
+        await axios.patch(`${backend.url}/api/users`, {
+          id: row.id,
+          ladrina: [
+            {
+              month: 'Mayo',
+              value: row[`ladrinaMonth2`].toString().replace(/\$|,/g, ''),
+            },
+          ],
+          category: 'ladrina',
+          type: 'results',
+        });
+        await axios.patch(`${backend.url}/api/users`, {
+          id: row.id,
+          ladrina: [
+            {
+              month: 'Junio',
+              value: row[`ladrinaMonth3`].toString().replace(/\$|,/g, ''),
+            },
+          ],
+          category: 'ladrina',
+          type: 'results',
+        });
+        await axios.patch(`${backend.url}/api/users`, {
+          id: row.id,
+          gatsy: [
+            {
+              month: 'Abril',
+              value: row[`gatsyMonth1`].toString().replace(/\$|,/g, ''),
+            },
+          ],
+          category: 'gatsy',
+          type: 'results',
+        });
+        await axios.patch(`${backend.url}/api/users`, {
+          id: row.id,
+          gatsy: [
+            {
+              month: 'Mayo',
+              value: row[`gatsyMonth2`].toString().replace(/\$|,/g, ''),
+            },
+          ],
+          category: 'gatsy',
+          type: 'results',
+        });
+        await axios.patch(`${backend.url}/api/users`, {
+          id: row.id,
+          gatsy: [
+            {
+              month: 'Junio',
+              value: row[`gatsyMonth3`].toString().replace(/\$|,/g, ''),
+            },
+          ],
+          category: 'gatsy',
           type: 'results',
         });
       } catch (e) {
@@ -491,32 +578,10 @@ const Resultados = () => {
     const name = e.target.name;
     const { id } = row;
     const newRows = rows.map((row) => {
-      const newValue = value !== '' ? value : 0;
-      let newTotal = 0;
-      if (name === 'month1') {
-        newTotal =
-          parseInt(newValue.toString().replace(/\$|,/g, '')) +
-          parseInt(row['month2'].toString().replace(/\$|,/g, '')) +
-          parseInt(row['month3'].toString().replace(/\$|,/g, ''));
-      }
-      if (name === 'month2') {
-        newTotal =
-          parseInt(newValue.toString().replace(/\$|,/g, '')) +
-          parseInt(row['month1'].toString().replace(/\$|,/g, '')) +
-          parseInt(row['month3'].toString().replace(/\$|,/g, ''));
-      }
-      if (name === 'month3') {
-        newTotal =
-          parseInt(newValue.toString().replace(/\$|,/g, '')) +
-          parseInt(row['month1'].toString().replace(/\$|,/g, '')) +
-          parseInt(row['month2'].toString().replace(/\$|,/g, ''));
-      }
-
       if (row.id === id) {
         return {
           ...row,
           [name]: value,
-          total: newTotal,
         };
       }
       return row;
@@ -546,10 +611,42 @@ const Resultados = () => {
           <TableRow>
             <TableCell align="left" />
             <TableCell align="left">Usuario</TableCell>
-            <TableCell align="left">Abril</TableCell>
-            <TableCell align="left">Mayo</TableCell>
-            <TableCell align="left">Junio</TableCell>
-            <TableCell align="left">Resultado Alcanzado</TableCell>
+            <TableCell align="center" style={{ backgroundColor: '#e88585' }}>
+              Ladrina <br /> Abril
+            </TableCell>
+            <TableCell align="center" style={{ backgroundColor: '#e88585' }}>
+              Ladrina <br /> Mayo
+            </TableCell>
+            <TableCell align="center" style={{ backgroundColor: '#e88585' }}>
+              Ladrina <br /> Junio
+            </TableCell>
+            <TableCell align="center" style={{ backgroundColor: '#a2ff91' }}>
+              Purina <br /> Abril
+            </TableCell>
+            <TableCell align="center" style={{ backgroundColor: '#a2ff91' }}>
+              Purina <br /> Mayo
+            </TableCell>
+            <TableCell align="center" style={{ backgroundColor: '#a2ff91' }}>
+              Purina <br /> Junio
+            </TableCell>
+            <TableCell
+              align="center"
+              style={{ backgroundColor: 'rgb(145, 235, 255)' }}
+            >
+              Gatsy <br /> Abril
+            </TableCell>
+            <TableCell
+              align="center"
+              style={{ backgroundColor: 'rgb(145, 235, 255)' }}
+            >
+              Gatsy <br /> Mayo
+            </TableCell>
+            <TableCell
+              align="center"
+              style={{ backgroundColor: 'rgb(145, 235, 255)' }}
+            >
+              Gatsy <br /> Junio
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -581,10 +678,15 @@ const Resultados = () => {
                 )}
               </TableCell>
               <CustomTableCell {...{ row, name: 'name', onChange }} />
-              <CustomTableCell {...{ row, name: 'month1', onChange }} />
-              <CustomTableCell {...{ row, name: 'month2', onChange }} />
-              <CustomTableCell {...{ row, name: 'month3', onChange }} />
-              <CustomTableCell {...{ row, name: 'total', onChange }} />
+              <CustomTableCell {...{ row, name: 'purinaMonth1', onChange }} />
+              <CustomTableCell {...{ row, name: 'purinaMonth2', onChange }} />
+              <CustomTableCell {...{ row, name: 'purinaMonth3', onChange }} />
+              <CustomTableCell {...{ row, name: 'ladrinaMonth1', onChange }} />
+              <CustomTableCell {...{ row, name: 'ladrinaMonth2', onChange }} />
+              <CustomTableCell {...{ row, name: 'ladrinaMonth3', onChange }} />
+              <CustomTableCell {...{ row, name: 'gatsyMonth1', onChange }} />
+              <CustomTableCell {...{ row, name: 'gatsyMonth2', onChange }} />
+              <CustomTableCell {...{ row, name: 'gatsyMonth3', onChange }} />
             </TableRow>
           ))}
         </TableBody>
