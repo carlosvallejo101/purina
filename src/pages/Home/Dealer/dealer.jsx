@@ -31,23 +31,103 @@ const BorderLinearProgress = withStyles((theme) => ({
 const Dealer = () => {
   const { user } = useAuth();
   const [data, setData] = useState(null);
-  const [progressValues] = useState({
-    purina: 100,
-    ladrina: 30,
-    extra: 0,
+  const [progressValues, setProgressValues] = useState({
+    purina: 0,
+    ladrina: 0,
+    gatsy: 0,
+  });
+  const [wasObjectiveReached, setWasObjectiveReached] = useState({
+    purina: false,
+    ladrina: false,
+    gatsy: false,
   });
 
   useEffect(() => {
     async function getUserInfo() {
       if (user) {
         const { data } = await axios.get(`${backend.url}/api/users/${user.id}`);
+        const totalPurina = data.resultsDealer.purina.reduce((acum, result) => {
+          return acum + result.value;
+        }, 0);
+        const totalLadrina = data.resultsDealer.ladrina.reduce(
+          (acum, result) => {
+            return acum + result.value;
+          },
+          0
+        );
+        const totalGatsy = data.resultsDealer.gatsy.reduce((acum, result) => {
+          return acum + result.value;
+        }, 0);
+        const objectivePurina = data.objectivesDealer.purina.reduce(
+          (acum, result) => {
+            return acum + result.value;
+          },
+          0
+        );
+        const objectiveLadrina = data.objectivesDealer.ladrina.reduce(
+          (acum, result) => {
+            return acum + result.value;
+          },
+          0
+        );
+        const objectiveGatsy = data.objectivesDealer.gatsy.reduce(
+          (acum, result) => {
+            return acum + result.value;
+          },
+          0
+        );
         setData({
           ...data,
+          totalPurina,
+          totalLadrina,
+          totalGatsy,
+          objectivePurina,
+          objectiveLadrina,
+          objectiveGatsy,
+          remainingPurina:
+            objectivePurina - totalPurina < 0
+              ? 0
+              : objectivePurina - totalPurina,
+          remainingLadrina:
+            objectiveLadrina - totalLadrina < 0
+              ? 0
+              : objectiveLadrina - totalLadrina,
+          remainingGatsy:
+            objectiveGatsy - totalGatsy < 0 ? 0 : objectiveGatsy - totalGatsy,
+        });
+        setProgressValues({
+          purina:
+            ((totalPurina * 100) / objectivePurina).toFixed(0) >= 100
+              ? 100
+              : ((totalPurina * 100) / objectivePurina).toFixed(0),
+          ladrina:
+            ((totalLadrina * 100) / objectiveLadrina).toFixed(0) >= 100
+              ? 100
+              : ((totalLadrina * 100) / objectiveLadrina).toFixed(0),
+          gatsy:
+            ((totalGatsy * 100) / objectiveGatsy).toFixed(0) >= 100
+              ? 100
+              : ((totalGatsy * 100) / objectiveGatsy).toFixed(0),
+        });
+        setWasObjectiveReached({
+          purina: totalPurina >= objectivePurina ? true : false,
+          ladrina:
+            totalPurina >= objectivePurina && totalLadrina >= objectiveLadrina
+              ? true
+              : false,
+          gatsy:
+            totalPurina >= objectivePurina &&
+            totalLadrina >= objectiveLadrina &&
+            totalGatsy >= objectiveGatsy
+              ? true
+              : false,
         });
       }
     }
     getUserInfo();
   }, [user]);
+
+  console.log(wasObjectiveReached);
 
   return data ? (
     <Wrapper>
@@ -66,7 +146,7 @@ const Dealer = () => {
                           <td>Tu objetivo trimestral: </td>
                           <td>
                             <NumberFormat
-                              value={6000}
+                              value={data.objectivePurina}
                               thousandSeparator={true}
                               prefix={'$ '}
                               displayType={'text'}
@@ -77,7 +157,7 @@ const Dealer = () => {
                           <td>Resultado acumulado: </td>
                           <td>
                             <NumberFormat
-                              value={6000}
+                              value={data.totalPurina}
                               thousandSeparator={true}
                               prefix={'$ '}
                               displayType={'text'}
@@ -86,7 +166,14 @@ const Dealer = () => {
                         </tr>
                         <tr className="item last">
                           <td>Te falta: </td>
-                          <td>0</td>
+                          <td>
+                            <NumberFormat
+                              value={data.remainingPurina}
+                              thousandSeparator={true}
+                              prefix={'$ '}
+                              displayType={'text'}
+                            />
+                          </td>
                         </tr>
                       </thead>
                     </table>
@@ -126,14 +213,25 @@ const Dealer = () => {
                   <div className="award-visual">
                     <div className="award-visual__img">
                       <img src={OptiStart} alt={OptiStart} />
-                      <div className="award-visual__hover">
-                        <BeenhereIcon
-                          style={{
-                            fill: '#96D93B',
-                            fontSize: '50px',
-                          }}
-                        />
-                      </div>
+                      {wasObjectiveReached.purina ? (
+                        <div className="award-visual__hover">
+                          <BeenhereIcon
+                            style={{
+                              fill: '#96D93B',
+                              fontSize: '50px',
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <div className="award-visual__hover">
+                          <LockIcon
+                            style={{
+                              fill: '#c53333',
+                              fontSize: '50px',
+                            }}
+                          />{' '}
+                        </div>
+                      )}
                     </div>
                     <div className="progress__bar progress__bar--dealer">
                       <p className="progress__quote">
@@ -164,7 +262,7 @@ const Dealer = () => {
                           <td>Tu objetivo trimestral: </td>
                           <td>
                             <NumberFormat
-                              value={7000}
+                              value={data.objectiveLadrina}
                               thousandSeparator={true}
                               prefix={'$ '}
                               displayType={'text'}
@@ -175,7 +273,7 @@ const Dealer = () => {
                           <td>Resultado acumulado: </td>
                           <td>
                             <NumberFormat
-                              value={1200}
+                              value={data.totalLadrina}
                               thousandSeparator={true}
                               prefix={'$ '}
                               displayType={'text'}
@@ -186,7 +284,7 @@ const Dealer = () => {
                           <td>Te falta: </td>
                           <td>
                             <NumberFormat
-                              value={5800}
+                              value={data.remainingLadrina}
                               thousandSeparator={true}
                               prefix={'$ '}
                               displayType={'text'}
@@ -231,6 +329,25 @@ const Dealer = () => {
                   <div className="award-visual">
                     <div className="award-visual__img">
                       <img src={OptiStart} alt={OptiStart} />
+                      {wasObjectiveReached.ladrina ? (
+                        <div className="award-visual__hover">
+                          <BeenhereIcon
+                            style={{
+                              fill: '#96D93B',
+                              fontSize: '50px',
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <div className="award-visual__hover">
+                          <LockIcon
+                            style={{
+                              fill: '#c53333',
+                              fontSize: '50px',
+                            }}
+                          />{' '}
+                        </div>
+                      )}
                     </div>
                     <div className="progress__bar">
                       <p className="progress__quote">
@@ -261,7 +378,7 @@ const Dealer = () => {
                           <td>Tu objetivo trimestral: </td>
                           <td>
                             <NumberFormat
-                              value={9000}
+                              value={data.objectiveGatsy}
                               thousandSeparator={true}
                               prefix={'$ '}
                               displayType={'text'}
@@ -272,7 +389,7 @@ const Dealer = () => {
                           <td>Resultado acumulado: </td>
                           <td>
                             <NumberFormat
-                              value={0}
+                              value={data.totalGatsy}
                               thousandSeparator={true}
                               prefix={'$ '}
                               displayType={'text'}
@@ -283,7 +400,7 @@ const Dealer = () => {
                           <td>Te falta: </td>
                           <td>
                             <NumberFormat
-                              value={9000}
+                              value={data.remainingGatsy}
                               thousandSeparator={true}
                               prefix={'$ '}
                               displayType={'text'}
@@ -325,14 +442,25 @@ const Dealer = () => {
                   <div className="award-visual">
                     <div className="award-visual__img">
                       <img src={OptiStart} alt={OptiStart} />
-                      <div className="award-visual__hover">
-                        <LockIcon
-                          style={{
-                            fill: '#c53333',
-                            fontSize: '50px',
-                          }}
-                        />
-                      </div>
+                      {wasObjectiveReached.gatsy ? (
+                        <div className="award-visual__hover">
+                          <BeenhereIcon
+                            style={{
+                              fill: '#96D93B',
+                              fontSize: '50px',
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <div className="award-visual__hover">
+                          <LockIcon
+                            style={{
+                              fill: '#c53333',
+                              fontSize: '50px',
+                            }}
+                          />{' '}
+                        </div>
+                      )}
                     </div>
                     <div className="progress__bar">
                       <p className="progress__quote">
@@ -343,11 +471,11 @@ const Dealer = () => {
                         <div>
                           <BorderLinearProgress
                             variant="determinate"
-                            value={progressValues.extra}
+                            value={progressValues.gatsy}
                             thickness={50}
                           />
                         </div>
-                        <p>{progressValues.extra}%</p>
+                        <p>{progressValues.gatsy}%</p>
                       </div>
                     </div>
                   </div>
