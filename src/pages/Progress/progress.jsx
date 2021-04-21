@@ -7,6 +7,7 @@ import { useAuth } from '../../auth/useAuth.jsx';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import { backend } from '../../config';
+import { useGetQuote } from '../../helpers/hooks/useGetQuote';
 
 import Wrapper from '../../components/Wrapper/wrapper.jsx';
 import Home from '../Home/home.jsx';
@@ -45,47 +46,34 @@ const Progress = () => {
   const history = useHistory();
   const { user } = useAuth();
   const [progressValue, setProgressValue] = useState(0);
-  const [quote, setQuote] = useState('');
   const [data, setData] = useState();
-
-  useEffect(() => {
-    if (progressValue < 10) {
-      setQuote('Apenas empiezas, ¡Ánimo!');
-    }
-    if (progressValue >= 10 && progressValue < 40) {
-      setQuote('Vas por buen camino');
-    }
-    if (progressValue >= 40 && progressValue < 60) {
-      setQuote('¡Ya estás por la mitad!');
-    }
-    if (progressValue >= 60 && progressValue < 80) {
-      setQuote('¡El premio es casi tuyo!');
-    }
-    if (progressValue >= 80 && progressValue < 90) {
-      setQuote('¡El premio es casi tuyo!');
-    }
-    if (progressValue >= 90) {
-      setQuote('¡La meta está cerca!');
-    }
-  }, [progressValue]);
 
   useEffect(() => {
     async function getGift() {
       if (user) {
         const { data } = await axios.get(`${backend.url}/api/users/${user.id}`);
-        const total = data.results.reduce((acum, result) => {
+        const total = data.resultsNormalSupport.reduce((acum, result) => {
           return acum + result.value;
         }, 0);
+        const objective = data.objectivesNormalSupport.reduce(
+          (acum, result) => {
+            return acum + result.value;
+          },
+          0
+        );
         setData({
           ...data,
           total,
-          remaining: parseInt(data.objective) - total,
+          objective,
+          remaining: objective - total,
         });
-        setProgressValue(((total * 100) / data.objective).toFixed(0));
+        setProgressValue(((total * 100) / objective).toFixed(0));
       }
     }
     getGift();
   }, [user]);
+
+  let quote = useGetQuote(progressValue);
 
   return user ? (
     user.roles.includes('Normal') || user.roles.includes('Support') ? (
@@ -149,9 +137,9 @@ const Progress = () => {
                         <td>Mes</td>
                         <td>Resultado</td>
                       </tr>
-                      {data.results.map((result, index) => {
+                      {data.resultsNormalSupport.map((result, index) => {
                         let resultClassName = 'item';
-                        if (index === data.results.length - 1) {
+                        if (index === data.resultsNormalSupport.length - 1) {
                           resultClassName = 'item last';
                         }
                         return (
