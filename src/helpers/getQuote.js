@@ -1,11 +1,11 @@
-export const getQuote = (value) => {
-  let quote = '';
+export const getQuote = (number) => {
+  const value = parseInt(number);
+  let quote = 'a';
   if (value === 0) {
     return (quote = 'Estaremos pendientes de tu progreso');
   }
-  if (value >= 1 && value < 10) {
-    return (quote = 'Apenas empiezas, ¡Ánimo!');
-  }
+  if (value >= 1 && value < 10) return (quote = 'Apenas empiezas, ¡Ánimo!');
+
   if (value >= 10 && value < 40) {
     return (quote = 'Vas por buen camino');
   }

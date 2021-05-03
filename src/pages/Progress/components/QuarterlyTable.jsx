@@ -14,7 +14,6 @@ const QuarterlyTable = ({ data, progressValue }) => {
               <td>
                 <NumberFormat
                   value={data.objective}
-                  // value={1111}
                   thousandSeparator={true}
                   prefix={'$ '}
                   displayType={'text'}
@@ -26,7 +25,6 @@ const QuarterlyTable = ({ data, progressValue }) => {
               <td>
                 <NumberFormat
                   value={data.total}
-                  // value={2222}
                   thousandSeparator={true}
                   prefix={'$ '}
                   displayType={'text'}
@@ -38,7 +36,6 @@ const QuarterlyTable = ({ data, progressValue }) => {
               <td>
                 <NumberFormat
                   value={data.remaining}
-                  // value={3333}
                   thousandSeparator={true}
                   prefix={'$ '}
                   displayType={'text'}

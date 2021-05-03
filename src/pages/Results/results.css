@@ -1,7 +1,6 @@
 .results {
   width: 70%;
   background-color: transparent;
-  /* height: 50vh; */
   border-radius: 8px;
   margin: 0 auto;
   padding: 20px 0;
@@ -52,14 +51,3 @@
   position: relative;
   transition: all 0.1s ease-in;
 }
-
-/* .tabs-full__title--active::before {
-  position: absolute;
-  top: 110%;
-  left: 40%;
-  content: '';
-  width: 7px;
-  height: 7px;
-  background-color: #f7c467;
-  border-radius: 50%;
-} */

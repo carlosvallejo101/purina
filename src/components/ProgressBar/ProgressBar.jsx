@@ -22,9 +22,10 @@ const BorderLinearProgress = withStyles((theme) => ({
 
 const ProgressBar = ({ value }) => {
   const formattedNumber = formatNumber(value, 0, 100);
+  const quote = getQuote(formattedNumber);
   return (
     <div className="progress__bar">
-      <p className="progress__quote">{getQuote(formattedNumber)}</p>
+      <p className="progress__quote">{quote}</p>
       <div className="progress__bar-container">
         <div>
           <BorderLinearProgress

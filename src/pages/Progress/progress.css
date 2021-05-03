@@ -4,14 +4,10 @@
   width: 100%;
   justify-content: center;
   align-items: center;
-  /* margin: 0 auto; */
-  /* bac */
-  /* background-color: antiquewhite; */
 }
 
 .progress__data {
   margin: 0px 20px 100px 20px;
-  /* background-color: rgba(165, 218, 44, 0.8); */
   width: 90%;
   display: flex;
   flex-direction: column;
@@ -204,15 +200,9 @@
 }
 
 @media screen and (min-width: 480px) {
-  /* .progress {
-    width: 70%;
-  } */
 }
 
 @media screen and (min-width: 720px) {
-  /* .progress {
-    width: 60%;
-  } */
 }
 @media screen and (min-width: 1024px) {
   .progress {
@@ -223,7 +213,6 @@
   }
 
   .progress__data {
-    /* width: 600px; */
     width: 90%;
     flex-direction: row;
   }
@@ -236,26 +225,5 @@
   .progress__info {
     max-width: 700px;
     margin-left: 40px;
-  }
-
-  .progress__quote--white {
-    /* text-align: left; */
-  }
-
-  .progress__data {
-    /* flex-direction: row; */
-    /* width: 100%; */
-  }
-
-  .progress__data-left {
-    /* width: 1000px; */
-  }
-
-  .progress__data img {
-  }
-
-  .progress__info {
-    /* margin-top: 0;
-    margin-left: 100px; */
   }
 }

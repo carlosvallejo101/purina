@@ -96,10 +96,6 @@
   width: 100%;
 }
 
-.progress__bar--dealer p {
-  /* color: rgb(197, 197, 197); */
-}
-
 @media screen and(min-width: 480px) {
   .award-container {
     margin: 0px 300px;
