@@ -55,7 +55,7 @@ const Progress = () => {
 
   const classTitle = 'tabs__title';
   const classTitleActive = 'tabs__title tabs-full__title--active';
-  const [currentTab, setCurrentTab] = useState('abril');
+  const [currentTab, setCurrentTab] = useState('trimestre');
 
   useEffect(() => {
     async function getGift() {
@@ -103,64 +103,62 @@ const Progress = () => {
       data ? (
         <Wrapper>
           <div className="progress">
-            <div className="progress__type progress__data">
-              <div>
-                <div className="progress__data-left">
-                  <h3 className="progress__quote--white">
-                    Tu esfuerzo se transformará en este premio:
-                  </h3>
-                  <img src={renderGift(data.gift)} alt={OptiAge} />
-                  <div className="progress__button">
-                    <button
-                      className="button"
-                      onClick={() => history.push('/home')}
+            <div className="progress__data">
+              <div className="progress__data-left">
+                <h3 className="progress__quote--white">
+                  Tu esfuerzo se transformará en este premio:
+                </h3>
+                <img src={renderGift(data.gift)} alt={OptiAge} />
+                <div className="progress__button">
+                  <button
+                    className="button"
+                    onClick={() => history.push('/home')}
+                  >
+                    Quiero cambiar de premio
+                  </button>
+                </div>
+              </div>
+              <div className="card progress__info">
+                <h2 className="card__title">Tu Avance</h2>
+                <div className="tabs">
+                  <div className="tabs__container">
+                    <h3
+                      onClick={() => setCurrentTab('trimestre')}
+                      className={
+                        currentTab === 'trimestre'
+                          ? classTitleActive
+                          : classTitle
+                      }
                     >
-                      Quiero cambiar de premio
-                    </button>
+                      Trimestre
+                    </h3>
+                    <h3
+                      onClick={() => setCurrentTab('abril')}
+                      className={
+                        currentTab === 'abril' ? classTitleActive : classTitle
+                      }
+                    >
+                      Abril
+                    </h3>
+                    <h3
+                      onClick={() => setCurrentTab('mayo')}
+                      className={
+                        currentTab === 'mayo' ? classTitleActive : classTitle
+                      }
+                    >
+                      Mayo
+                    </h3>
+                    <h3
+                      onClick={() => setCurrentTab('junio')}
+                      className={
+                        currentTab === 'junio' ? classTitleActive : classTitle
+                      }
+                    >
+                      Junio
+                    </h3>
                   </div>
                 </div>
-                <div className="card progress__info">
-                  <h2 className="card__title">Tu Avance</h2>
-                  <div className="tabs">
-                    <div className="tabs__container">
-                      <h3
-                        onClick={() => setCurrentTab('trimestre')}
-                        className={
-                          currentTab === 'trimestre'
-                            ? classTitleActive
-                            : classTitle
-                        }
-                      >
-                        Trimestre
-                      </h3>
-                      <h3
-                        onClick={() => setCurrentTab('abril')}
-                        className={
-                          currentTab === 'abril' ? classTitleActive : classTitle
-                        }
-                      >
-                        Abril
-                      </h3>
-                      <h3
-                        onClick={() => setCurrentTab('mayo')}
-                        className={
-                          currentTab === 'mayo' ? classTitleActive : classTitle
-                        }
-                      >
-                        Mayo
-                      </h3>
-                      <h3
-                        onClick={() => setCurrentTab('junio')}
-                        className={
-                          currentTab === 'junio' ? classTitleActive : classTitle
-                        }
-                      >
-                        Junio
-                      </h3>
-                    </div>
-                  </div>
-                  {toggleTab()}
-                </div>
+                {toggleTab()}
               </div>
             </div>
           </div>
