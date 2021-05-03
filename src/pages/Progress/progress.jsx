@@ -8,6 +8,7 @@ import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import { backend } from '../../config';
 import { getQuote } from '../../helpers/getQuote';
+import { formatNumber } from '../../helpers/formatNumber';
 
 import Wrapper from '../../components/Wrapper/wrapper.jsx';
 import Home from '../Home/home.jsx';
@@ -26,6 +27,10 @@ import OptiFitSupport from '../../assets/img/optifit_support.png';
 import OptiFortisSupport from '../../assets/img/optifortis_support.png';
 import OptiHealthSupport from '../../assets/img/optihealth_support.png';
 import OptiStartSupport from '../../assets/img/optistart_support.png';
+
+import ProgressBar from '../../components/ProgressBar/ProgressBar.jsx';
+import QuarterlyTable from './components/QuarterlyTable.jsx';
+import MonthlyTable from './components/MonthlyTable.jsx';
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -48,6 +53,10 @@ const Progress = () => {
   const [progressValue, setProgressValue] = useState(0);
   const [data, setData] = useState();
 
+  const classTitle = 'tabs__title';
+  const classTitleActive = 'tabs__title tabs-full__title--active';
+  const [currentTab, setCurrentTab] = useState('abril');
+
   useEffect(() => {
     async function getGift() {
       if (user) {
@@ -67,112 +76,90 @@ const Progress = () => {
           objective,
           remaining: objective - total,
         });
-        setProgressValue(((total * 100) / objective).toFixed(0));
+        setProgressValue(formatNumber((total * 100) / objective, 0, 100));
       }
     }
     getGift();
+    // eslint-disable-next-line
   }, [user]);
 
-  // let quote = useGetQuote(progressValue);
+  const toggleTab = () => {
+    switch (currentTab) {
+      case 'trimestre':
+        return <QuarterlyTable data={data} progressValue={progressValue} />;
+      case 'abril':
+        return <MonthlyTable month={0} data={data} />;
+      case 'mayo':
+        return <MonthlyTable month={1} data={data} />;
+      case 'junio':
+        return <MonthlyTable month={2} data={data} />;
+      default:
+        return null;
+    }
+  };
 
   return user ? (
     user.roles.includes('Normal') || user.roles.includes('Support') ? (
       data ? (
         <Wrapper>
           <div className="progress">
-            <div className="progress__data">
-              <div className="progress__data-left">
-                <h3 className="progress__quote--white">
-                  Tu esfuerzo se transformará en este premio:
-                </h3>
-                <img src={renderGift(data.gift)} alt={OptiAge} />
-                <div className="progress__button">
-                  <button
-                    className="button"
-                    onClick={() => history.push('/home')}
-                  >
-                    Quiero cambiar de premio
-                  </button>
-                </div>
-              </div>
-              <div className="card progress__info">
-                <h2 className="card__title">Tu Avance</h2>
-                <div className="invoice-box">
-                  <table cellPadding={0} cellSpacing={0}>
-                    <thead>
-                      <tr className="item">
-                        <td>Tu objetivo trimestral: </td>
-                        <td>
-                          <NumberFormat
-                            value={data.objective}
-                            thousandSeparator={true}
-                            prefix={'$ '}
-                            displayType={'text'}
-                          />
-                        </td>
-                      </tr>
-                      <tr className="item">
-                        <td>Resultado acumulado: </td>
-                        <td>
-                          <NumberFormat
-                            value={data.total}
-                            thousandSeparator={true}
-                            prefix={'$ '}
-                            displayType={'text'}
-                          />
-                        </td>
-                      </tr>
-                      <tr className="item last">
-                        <td>Te falta: </td>
-                        <td>
-                          <NumberFormat
-                            value={data.remaining}
-                            thousandSeparator={true}
-                            prefix={'$ '}
-                            displayType={'text'}
-                          />
-                        </td>
-                      </tr>
-                      <tr className="heading">
-                        <td>Mes</td>
-                        <td>Resultado</td>
-                      </tr>
-                      {data.resultsNormalSupport.map((result, index) => {
-                        let resultClassName = 'item';
-                        if (index === data.resultsNormalSupport.length - 1) {
-                          resultClassName = 'item last';
-                        }
-                        return (
-                          <tr className={resultClassName} key={index}>
-                            <td>{result.month}</td>
-                            <td>
-                              <NumberFormat
-                                value={result.value}
-                                thousandSeparator={true}
-                                prefix={'$ '}
-                                displayType={'text'}
-                              />
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </thead>
-                  </table>
-                </div>
-                <div className="progress__bar">
-                  <p className="progress__quote">
-                    {getQuote(parseInt(progressValue))}
-                  </p>
-                  <div className="progress__bar-container">
-                    <div>
-                      <BorderLinearProgress
-                        variant="determinate"
-                        value={parseInt(progressValue)}
-                        thickness={50}
-                      />
-                    </div>
-                    <p>{progressValue}%</p>
+            <div className="progress__type progress__data">
+              <div>
+                <div className="progress__data-left">
+                  <h3 className="progress__quote--white">
+                    Tu esfuerzo se transformará en este premio:
+                  </h3>
+                  <img src={renderGift(data.gift)} alt={OptiAge} />
+                  <div className="progress__button">
+                    <button
+                      className="button"
+                      onClick={() => history.push('/home')}
+                    >
+                      Quiero cambiar de premio
+                    </button>
                   </div>
+                </div>
+                <div className="card progress__info">
+                  <h2 className="card__title">Tu Avance</h2>
+                  <div className="tabs">
+                    <div className="tabs__container">
+                      <h3
+                        onClick={() => setCurrentTab('trimestre')}
+                        className={
+                          currentTab === 'trimestre'
+                            ? classTitleActive
+                            : classTitle
+                        }
+                      >
+                        Trimestre
+                      </h3>
+                      <h3
+                        onClick={() => setCurrentTab('abril')}
+                        className={
+                          currentTab === 'abril' ? classTitleActive : classTitle
+                        }
+                      >
+                        Abril
+                      </h3>
+                      <h3
+                        onClick={() => setCurrentTab('mayo')}
+                        className={
+                          currentTab === 'mayo' ? classTitleActive : classTitle
+                        }
+                      >
+                        Mayo
+                      </h3>
+                      <h3
+                        onClick={() => setCurrentTab('junio')}
+                        className={
+                          currentTab === 'junio' ? classTitleActive : classTitle
+                        }
+                      >
+                        Junio
+                      </h3>
+                    </div>
+                  </div>
+                  {toggleTab()}
                 </div>
               </div>
             </div>

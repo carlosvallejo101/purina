@@ -1,36 +1,64 @@
 .progress {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  /* margin: 0 auto; */
+  /* bac */
+  /* background-color: antiquewhite; */
+}
+
+.progress__type {
+  margin: 0px 20px 100px 20px;
+  /* background-color: rgba(165, 218, 44, 0.8); */
   width: 90%;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.type__title {
+  color: white;
+  margin: 0;
+  margin-bottom: 10px;
 }
 
 .progress__data {
-  display: flex;
+  /* display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  width: 100%;
-  margin: 0 auto;
+   width: 100%; 
+  margin: 0 auto; */
 }
 
 .progress__data-left {
   width: 100%;
 }
 
-.progress__data img {
+.progress__type img {
   width: 100%;
 }
 
+.monthly__img {
+  margin-top: 20px;
+}
+
+/* .progress__data img {
+  width: 100%;
+} */
+
 .progress__info {
-  margin-top: 30px;
+  /* margin-top: 30px; */
   margin-left: 0px;
 }
 
 .progress__button {
   width: 300px;
   width: 100%;
-  margin: 50px auto 0px auto;
+  margin: 10px auto 0px auto;
 }
 
 .progress__quote {
@@ -189,39 +217,44 @@
 }
 
 @media screen and (min-width: 480px) {
-  .progress {
+  /* .progress {
     width: 70%;
-  }
+  } */
 }
 
 @media screen and (min-width: 720px) {
-  .progress {
+  /* .progress {
     width: 60%;
-  }
+  } */
 }
 @media screen and (min-width: 1024px) {
   .progress {
-    width: 75%;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .progress__type {
+    width: 600px;
   }
 
   .progress__quote--white {
-    text-align: left;
+    /* text-align: left; */
   }
 
   .progress__data {
-    flex-direction: row;
-    width: 100%;
+    /* flex-direction: row; */
+    /* width: 100%; */
   }
 
   .progress__data-left {
-    width: 1000px;
+    /* width: 1000px; */
   }
 
   .progress__data img {
   }
 
   .progress__info {
-    margin-top: 0;
-    margin-left: 100px;
+    /* margin-top: 0;
+    margin-left: 100px; */
   }
 }

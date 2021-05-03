@@ -1,6 +1,5 @@
 export const getQuote = (value) => {
-  let quote = 'a';
-  console.log(value);
+  let quote = '';
   if (value === 0) {
     return (quote = 'Estaremos pendientes de tu progreso');
   }

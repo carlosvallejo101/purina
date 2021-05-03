@@ -281,7 +281,6 @@ const Objetivos = () => {
     const name = e.target.name;
     const { id } = row;
     const newRows = rows.map((row) => {
-      const newValue = value !== '' ? value : 0;
       // let newTotal = 0;
       // if (name === 'month1') {
       //   newTotal =
