@@ -72,7 +72,6 @@ const LoadSupport = () => {
   return user ? (
     user.roles.includes('Admin') ? (
       <div className="load-normal">
-        {/* <h2 className="results__title">Cargar Resultados</h2> */}
         <div className="results__body">
           <div className="tabs">
             <div className="tabs__container">

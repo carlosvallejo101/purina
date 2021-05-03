@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import { withStyles } from '@material-ui/core/styles';
 import './progress.css';
 import { useAuth } from '../../auth/useAuth.jsx';
 import axios from 'axios';
-import NumberFormat from 'react-number-format';
 import { backend } from '../../config';
-import { getQuote } from '../../helpers/getQuote';
 import { formatNumber } from '../../helpers/formatNumber';
 
 import Wrapper from '../../components/Wrapper/wrapper.jsx';
@@ -28,24 +24,8 @@ import OptiFortisSupport from '../../assets/img/optifortis_support.png';
 import OptiHealthSupport from '../../assets/img/optihealth_support.png';
 import OptiStartSupport from '../../assets/img/optistart_support.png';
 
-import ProgressBar from '../../components/ProgressBar/ProgressBar.jsx';
 import QuarterlyTable from './components/QuarterlyTable.jsx';
 import MonthlyTable from './components/MonthlyTable.jsx';
-
-const BorderLinearProgress = withStyles((theme) => ({
-  root: {
-    height: 20,
-    borderRadius: 5,
-  },
-  colorPrimary: {
-    backgroundColor:
-      theme.palette.grey[theme.palette.type === 'light' ? 200 : 700],
-  },
-  bar: {
-    borderRadius: 5,
-    backgroundColor: '#96D93B',
-  },
-}))(LinearProgress);
 
 const Progress = () => {
   const history = useHistory();

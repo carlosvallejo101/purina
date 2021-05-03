@@ -4,7 +4,6 @@
 
 .card--dealer {
   background-color: transparent;
-  /* background-color: white; */
 }
 
 .dealer-awards {
@@ -27,11 +26,6 @@
   border-radius: 10px;
 }
 
-.award-container h3 {
-  /* color: white; */
-  /* padding-top: -100px; */
-}
-
 .award-table {
   margin: 10px 0;
   width: 100%;
@@ -48,7 +42,6 @@
   margin: 10px 0;
   justify-content: space-between;
   color: #333;
-  /* color: rgb(197, 197, 197); */
 }
 
 .award-table tr td:nth-child(2) {
