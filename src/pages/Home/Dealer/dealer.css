@@ -1,5 +1,7 @@
 .dealer {
   margin-top: -50px;
+  display: flex;
+  justify-content: center;
 }
 
 .card--dealer {
@@ -8,7 +10,7 @@
 
 .dealer-awards {
   display: flex;
-  width: 90%;
+  width: 100%;
   justify-content: space-around;
   flex-wrap: wrap;
 }
@@ -89,13 +91,10 @@
   width: 100%;
 }
 
-@media screen and(min-width: 480px) {
-  .award-container {
-    margin: 0px 300px;
-  }
+@media screen and (min-width: 480px) {
 }
-@media screen and(min-width: 1024px) {
-  .dealer {
-    width: 90%;
+@media screen and (min-width: 1024px) {
+  .progress__info {
+    max-width: initial;
   }
 }
