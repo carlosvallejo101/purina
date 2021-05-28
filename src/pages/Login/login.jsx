@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { backend } from '../../config';
+import { backend, backendSQL } from '../../config';
 import { useAuth } from '../../auth/useAuth.jsx';
 import './login.css';
 
@@ -35,8 +35,32 @@ const Login = () => {
   const login = async () => {
     setError(null);
     window.localStorage.removeItem('purinaUser');
+    let data = null;
     try {
-      const { data } = await axios.post(backend.url + '/api/auth', credentials);
+      const res = await axios.post(backend.url + '/api/auth', credentials);
+      data = res.data;
+    } catch (e) {
+      let errorCode = e.response.status;
+      if (errorCode === 401) setError('Usuario o Contraseña incorrectos');
+      if (errorCode === 404) {
+        try {
+          const res = await axios.post(backendSQL.url + '/auth', {
+            username: credentials.phoneOrEmail,
+            password: credentials.password,
+          });
+          data = res.data;
+        } catch (e) {
+          console.log(e);
+          errorCode = e.response.status;
+          if (errorCode === 404) setError(`Usuario no encontrado`);
+          if (errorCode === 401) setError(`Usuario o Contraseña incorrectos`);
+          if (errorCode !== 401 || errorCode !== 404)
+            setError(`Error del servidor`);
+        }
+      }
+    }
+
+    if (data) {
       window.localStorage.setItem('purinaUser', JSON.stringify(data));
       setCredentials({
         phoneOrEmail: '',
@@ -45,11 +69,7 @@ const Login = () => {
       if (data.roles.includes('Admin')) {
         history.push('/results');
       }
-      if (
-        data.roles.includes('Normal') ||
-        data.roles.includes('Support') ||
-        data.roles.includes('Dealer')
-      ) {
+      if (data.roles.includes('Normal') || data.roles.includes('Support')) {
         const { data: loggedUser } = await axios.get(
           `${backend.url}/api/users/${data.id}`
         );
@@ -59,10 +79,11 @@ const Login = () => {
         } else {
           history.push('/home');
         }
+      } else {
+        if (data.roles.includes('Dealer')) {
+          history.push('/home');
+        }
       }
-    } catch (e) {
-      console.log(e);
-      setError('Usuario o Contraseña incorrectos');
     }
   };
 

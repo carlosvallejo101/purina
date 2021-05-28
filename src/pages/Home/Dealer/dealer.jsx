@@ -30,7 +30,7 @@ const BorderLinearProgress = withStyles((theme) => ({
 
 const Dealer = () => {
   const { user } = useAuth();
-  const [data, setData] = useState(null);
+  const [data, setData] = useState({ user: 1 });
   const [progressValues, setProgressValues] = useState({
     purina: 0,
     ladrina: 0,
@@ -42,90 +42,90 @@ const Dealer = () => {
     gatsy: false,
   });
 
-  useEffect(() => {
-    async function getUserInfo() {
-      if (user) {
-        const { data } = await axios.get(`${backend.url}/api/users/${user.id}`);
-        const totalPurina = data.resultsDealer.purina.reduce((acum, result) => {
-          return acum + result.value;
-        }, 0);
-        const totalLadrina = data.resultsDealer.ladrina.reduce(
-          (acum, result) => {
-            return acum + result.value;
-          },
-          0
-        );
-        const totalGatsy = data.resultsDealer.gatsy.reduce((acum, result) => {
-          return acum + result.value;
-        }, 0);
-        const objectivePurina = data.objectivesDealer.purina.reduce(
-          (acum, result) => {
-            return acum + result.value;
-          },
-          0
-        );
-        const objectiveLadrina = data.objectivesDealer.ladrina.reduce(
-          (acum, result) => {
-            return acum + result.value;
-          },
-          0
-        );
-        const objectiveGatsy = data.objectivesDealer.gatsy.reduce(
-          (acum, result) => {
-            return acum + result.value;
-          },
-          0
-        );
-        setData({
-          ...data,
-          totalPurina,
-          totalLadrina,
-          totalGatsy,
-          objectivePurina,
-          objectiveLadrina,
-          objectiveGatsy,
-          remainingPurina:
-            objectivePurina - totalPurina < 0
-              ? 0
-              : objectivePurina - totalPurina,
-          remainingLadrina:
-            objectiveLadrina - totalLadrina < 0
-              ? 0
-              : objectiveLadrina - totalLadrina,
-          remainingGatsy:
-            objectiveGatsy - totalGatsy < 0 ? 0 : objectiveGatsy - totalGatsy,
-        });
-        setProgressValues({
-          purina:
-            ((totalPurina * 100) / objectivePurina).toFixed(0) >= 100
-              ? 100
-              : ((totalPurina * 100) / objectivePurina).toFixed(0),
-          ladrina:
-            ((totalLadrina * 100) / objectiveLadrina).toFixed(0) >= 100
-              ? 100
-              : ((totalLadrina * 100) / objectiveLadrina).toFixed(0),
-          gatsy:
-            ((totalGatsy * 100) / objectiveGatsy).toFixed(0) >= 100
-              ? 100
-              : ((totalGatsy * 100) / objectiveGatsy).toFixed(0),
-        });
-        setWasObjectiveReached({
-          purina: totalPurina >= objectivePurina ? true : false,
-          ladrina:
-            totalPurina >= objectivePurina && totalLadrina >= objectiveLadrina
-              ? true
-              : false,
-          gatsy:
-            totalPurina >= objectivePurina &&
-            totalLadrina >= objectiveLadrina &&
-            totalGatsy >= objectiveGatsy
-              ? true
-              : false,
-        });
-      }
-    }
-    getUserInfo();
-  }, [user]);
+  // useEffect(() => {
+  //   async function getUserInfo() {
+  //     if (user) {
+  //       const { data } = await axios.get(`${backend.url}/api/users/${user.id}`);
+  //       const totalPurina = data.resultsDealer.purina.reduce((acum, result) => {
+  //         return acum + result.value;
+  //       }, 0);
+  //       const totalLadrina = data.resultsDealer.ladrina.reduce(
+  //         (acum, result) => {
+  //           return acum + result.value;
+  //         },
+  //         0
+  //       );
+  //       const totalGatsy = data.resultsDealer.gatsy.reduce((acum, result) => {
+  //         return acum + result.value;
+  //       }, 0);
+  //       const objectivePurina = data.objectivesDealer.purina.reduce(
+  //         (acum, result) => {
+  //           return acum + result.value;
+  //         },
+  //         0
+  //       );
+  //       const objectiveLadrina = data.objectivesDealer.ladrina.reduce(
+  //         (acum, result) => {
+  //           return acum + result.value;
+  //         },
+  //         0
+  //       );
+  //       const objectiveGatsy = data.objectivesDealer.gatsy.reduce(
+  //         (acum, result) => {
+  //           return acum + result.value;
+  //         },
+  //         0
+  //       );
+  //       setData({
+  //         ...data,
+  //         totalPurina,
+  //         totalLadrina,
+  //         totalGatsy,
+  //         objectivePurina,
+  //         objectiveLadrina,
+  //         objectiveGatsy,
+  //         remainingPurina:
+  //           objectivePurina - totalPurina < 0
+  //             ? 0
+  //             : objectivePurina - totalPurina,
+  //         remainingLadrina:
+  //           objectiveLadrina - totalLadrina < 0
+  //             ? 0
+  //             : objectiveLadrina - totalLadrina,
+  //         remainingGatsy:
+  //           objectiveGatsy - totalGatsy < 0 ? 0 : objectiveGatsy - totalGatsy,
+  //       });
+  //       setProgressValues({
+  //         purina:
+  //           ((totalPurina * 100) / objectivePurina).toFixed(0) >= 100
+  //             ? 100
+  //             : ((totalPurina * 100) / objectivePurina).toFixed(0),
+  //         ladrina:
+  //           ((totalLadrina * 100) / objectiveLadrina).toFixed(0) >= 100
+  //             ? 100
+  //             : ((totalLadrina * 100) / objectiveLadrina).toFixed(0),
+  //         gatsy:
+  //           ((totalGatsy * 100) / objectiveGatsy).toFixed(0) >= 100
+  //             ? 100
+  //             : ((totalGatsy * 100) / objectiveGatsy).toFixed(0),
+  //       });
+  //       setWasObjectiveReached({
+  //         purina: totalPurina >= objectivePurina ? true : false,
+  //         ladrina:
+  //           totalPurina >= objectivePurina && totalLadrina >= objectiveLadrina
+  //             ? true
+  //             : false,
+  //         gatsy:
+  //           totalPurina >= objectivePurina &&
+  //           totalLadrina >= objectiveLadrina &&
+  //           totalGatsy >= objectiveGatsy
+  //             ? true
+  //             : false,
+  //       });
+  //     }
+  //   }
+  //   getUserInfo();
+  // }, [user]);
 
   return data ? (
     <Wrapper>
@@ -133,7 +133,7 @@ const Dealer = () => {
         <div className="progress__data">
           <div className="card progress__info--dealer card--dealer">
             <h2 className="card__title card__title--white">Tu Avance</h2>
-            <div className="dealer-awards">
+            {/* <div className="dealer-awards">
               <div className="award-container">
                 <h3>Purina</h3>
                 <div className="award-info">
@@ -476,7 +476,7 @@ const Dealer = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
