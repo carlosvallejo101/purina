@@ -94,7 +94,7 @@
 @media screen and (min-width: 480px) {
 }
 @media screen and (min-width: 1024px) {
-  .progress__info {
+  .progress__info--dealer {
     max-width: initial;
   }
 }

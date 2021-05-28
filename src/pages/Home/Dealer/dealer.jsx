@@ -131,7 +131,7 @@ const Dealer = () => {
     <Wrapper>
       <div className="dealer">
         <div className="progress__data">
-          <div className="card progress__info card--dealer">
+          <div className="card progress__info--dealer card--dealer">
             <h2 className="card__title card__title--white">Tu Avance</h2>
             <div className="dealer-awards">
               <div className="award-container">
