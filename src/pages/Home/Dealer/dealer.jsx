@@ -7,11 +7,14 @@ import { withStyles } from '@material-ui/core/styles';
 import { getQuote } from '../../../helpers/getQuote';
 import './dealer.css';
 import axios from 'axios';
-import { backend } from '../../../config';
+import { backendSQL } from '../../../config';
 import { useAuth } from '../../../auth/useAuth.jsx';
 
 import Wrapper from '../../../components/Wrapper/wrapper.jsx';
 import OptiStart from '../../../assets/img/optistart.png';
+import { getRemaining } from '../../../helpers/getRemaining';
+import { getMonthName } from '../../../helpers/getMonthName';
+import { formatNumber } from '../../../helpers/formatNumber';
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -42,98 +45,94 @@ const Dealer = () => {
     gatsy: false,
   });
 
-  // useEffect(() => {
-  //   async function getUserInfo() {
-  //     if (user) {
-  //       const { data } = await axios.get(`${backend.url}/api/users/${user.id}`);
-  //       const totalPurina = data.resultsDealer.purina.reduce((acum, result) => {
-  //         return acum + result.value;
-  //       }, 0);
-  //       const totalLadrina = data.resultsDealer.ladrina.reduce(
-  //         (acum, result) => {
-  //           return acum + result.value;
-  //         },
-  //         0
-  //       );
-  //       const totalGatsy = data.resultsDealer.gatsy.reduce((acum, result) => {
-  //         return acum + result.value;
-  //       }, 0);
-  //       const objectivePurina = data.objectivesDealer.purina.reduce(
-  //         (acum, result) => {
-  //           return acum + result.value;
-  //         },
-  //         0
-  //       );
-  //       const objectiveLadrina = data.objectivesDealer.ladrina.reduce(
-  //         (acum, result) => {
-  //           return acum + result.value;
-  //         },
-  //         0
-  //       );
-  //       const objectiveGatsy = data.objectivesDealer.gatsy.reduce(
-  //         (acum, result) => {
-  //           return acum + result.value;
-  //         },
-  //         0
-  //       );
-  //       setData({
-  //         ...data,
-  //         totalPurina,
-  //         totalLadrina,
-  //         totalGatsy,
-  //         objectivePurina,
-  //         objectiveLadrina,
-  //         objectiveGatsy,
-  //         remainingPurina:
-  //           objectivePurina - totalPurina < 0
-  //             ? 0
-  //             : objectivePurina - totalPurina,
-  //         remainingLadrina:
-  //           objectiveLadrina - totalLadrina < 0
-  //             ? 0
-  //             : objectiveLadrina - totalLadrina,
-  //         remainingGatsy:
-  //           objectiveGatsy - totalGatsy < 0 ? 0 : objectiveGatsy - totalGatsy,
-  //       });
-  //       setProgressValues({
-  //         purina:
-  //           ((totalPurina * 100) / objectivePurina).toFixed(0) >= 100
-  //             ? 100
-  //             : ((totalPurina * 100) / objectivePurina).toFixed(0),
-  //         ladrina:
-  //           ((totalLadrina * 100) / objectiveLadrina).toFixed(0) >= 100
-  //             ? 100
-  //             : ((totalLadrina * 100) / objectiveLadrina).toFixed(0),
-  //         gatsy:
-  //           ((totalGatsy * 100) / objectiveGatsy).toFixed(0) >= 100
-  //             ? 100
-  //             : ((totalGatsy * 100) / objectiveGatsy).toFixed(0),
-  //       });
-  //       setWasObjectiveReached({
-  //         purina: totalPurina >= objectivePurina ? true : false,
-  //         ladrina:
-  //           totalPurina >= objectivePurina && totalLadrina >= objectiveLadrina
-  //             ? true
-  //             : false,
-  //         gatsy:
-  //           totalPurina >= objectivePurina &&
-  //           totalLadrina >= objectiveLadrina &&
-  //           totalGatsy >= objectiveGatsy
-  //             ? true
-  //             : false,
-  //       });
-  //     }
-  //   }
-  //   getUserInfo();
-  // }, [user]);
+  useEffect(() => {
+    async function getUserInfo() {
+      if (user) {
+        const currentMonth = new Date().getMonth() + 1;
+        const { data: objectives } = await axios.get(
+          `${backendSQL.url}/objectives?month=${currentMonth}&participantId=${user.id}`
+        );
+
+        let objectivePurina,
+          objectiveLadrina,
+          objectiveGatsy = 0;
+        let totalPurina,
+          totalLadrina,
+          totalGatsy = 0;
+        let remainingPurina,
+          remainingLadrina,
+          remainingGatsy = 0;
+
+        objectives.forEach((objective) => {
+          switch (objective.type) {
+            case 'PURINA':
+              objectivePurina = objective.value;
+              totalPurina = objective.result.value;
+              remainingPurina = getRemaining(objectivePurina, totalPurina);
+              return;
+            case 'LADRINA':
+              objectiveLadrina = objective.value;
+              totalLadrina = objective.result.value;
+              remainingLadrina = getRemaining(objectiveLadrina, totalLadrina);
+              return;
+            case 'GATSY':
+              objectiveGatsy = objective.value;
+              totalGatsy = objective.result.value;
+              remainingGatsy = getRemaining(objectiveGatsy, totalGatsy);
+              return;
+            default:
+              return setData({ ...data });
+          }
+        });
+
+        setData({
+          ...data,
+          totalPurina,
+          totalLadrina,
+          totalGatsy,
+          objectivePurina,
+          objectiveLadrina,
+          objectiveGatsy,
+          remainingPurina,
+          remainingLadrina,
+          remainingGatsy,
+        });
+        setProgressValues({
+          purina: formatNumber((totalPurina * 100) / objectivePurina, 0, 100),
+          ladrina: formatNumber(
+            (totalLadrina * 100) / objectiveLadrina,
+            0,
+            100
+          ),
+          gatsy: formatNumber((totalGatsy * 100) / objectiveGatsy, 0, 100),
+        });
+        setWasObjectiveReached({
+          purina: totalPurina >= objectivePurina ? true : false,
+          ladrina:
+            totalPurina >= objectivePurina && totalLadrina >= objectiveLadrina
+              ? true
+              : false,
+          gatsy:
+            totalPurina >= objectivePurina &&
+            totalLadrina >= objectiveLadrina &&
+            totalGatsy >= objectiveGatsy
+              ? true
+              : false,
+        });
+      }
+    }
+    getUserInfo();
+  }, [user]);
 
   return data ? (
     <Wrapper>
       <div className="dealer">
         <div className="progress__data">
           <div className="card progress__info--dealer card--dealer">
-            <h2 className="card__title card__title--white">Tu Avance</h2>
-            {/* <div className="dealer-awards">
+            <h2 className="card__title card__title--white">
+              Tu Avance: {getMonthName(new Date().getMonth() + 1)}
+            </h2>
+            <div className="dealer-awards">
               <div className="award-container">
                 <h3>Purina</h3>
                 <div className="award-info">
@@ -175,38 +174,6 @@ const Dealer = () => {
                         </tr>
                       </thead>
                     </table>
-                    <div className="invoice-box">
-                      <table cellPadding={0} cellSpacing={0}>
-                        <thead>
-                          <tr className="heading">
-                            <td>Mes</td>
-                            <td>Resultado</td>
-                          </tr>
-                          {data.resultsDealer.purina.map((result, index) => {
-                            let resultClassName = 'item';
-                            if (
-                              index ===
-                              data.resultsDealer.purina.length - 1
-                            ) {
-                              resultClassName = 'item last';
-                            }
-                            return (
-                              <tr className={resultClassName} key={index}>
-                                <td>{result.month}</td>
-                                <td>
-                                  <NumberFormat
-                                    value={result.value}
-                                    thousandSeparator={true}
-                                    prefix={'$ '}
-                                    displayType={'text'}
-                                  />
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        </thead>
-                      </table>
-                    </div>
                   </div>
                   <div className="award-visual">
                     <div className="award-visual__img">
@@ -290,38 +257,6 @@ const Dealer = () => {
                         </tr>
                       </thead>
                     </table>
-                    <div className="invoice-box">
-                      <table cellPadding={0} cellSpacing={0}>
-                        <thead>
-                          <tr className="heading">
-                            <td>Mes</td>
-                            <td>Resultado</td>
-                          </tr>
-                          {data.resultsDealer.ladrina.map((result, index) => {
-                            let resultClassName = 'item';
-                            if (
-                              index ===
-                              data.resultsDealer.ladrina.length - 1
-                            ) {
-                              resultClassName = 'item last';
-                            }
-                            return (
-                              <tr className={resultClassName} key={index}>
-                                <td>{result.month}</td>
-                                <td>
-                                  <NumberFormat
-                                    value={result.value}
-                                    thousandSeparator={true}
-                                    prefix={'$ '}
-                                    displayType={'text'}
-                                  />
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        </thead>
-                      </table>
-                    </div>
                   </div>
                   <div className="award-visual">
                     <div className="award-visual__img">
@@ -405,35 +340,6 @@ const Dealer = () => {
                         </tr>
                       </thead>
                     </table>
-                    <div className="invoice-box">
-                      <table cellPadding={0} cellSpacing={0}>
-                        <thead>
-                          <tr className="heading">
-                            <td>Mes</td>
-                            <td>Resultado</td>
-                          </tr>
-                          {data.resultsDealer.gatsy.map((result, index) => {
-                            let resultClassName = 'item';
-                            if (index === data.resultsDealer.gatsy.length - 1) {
-                              resultClassName = 'item last';
-                            }
-                            return (
-                              <tr className={resultClassName} key={index}>
-                                <td>{result.month}</td>
-                                <td>
-                                  <NumberFormat
-                                    value={result.value}
-                                    thousandSeparator={true}
-                                    prefix={'$ '}
-                                    displayType={'text'}
-                                  />
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        </thead>
-                      </table>
-                    </div>
                   </div>
                   <div className="award-visual">
                     <div className="award-visual__img">
@@ -476,7 +382,7 @@ const Dealer = () => {
                   </div>
                 </div>
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>
