@@ -4,6 +4,19 @@
   justify-content: center;
 }
 
+.dealer .month-info {
+  color: white;
+  margin-top: -20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dealer .month-info p {
+  margin: 10px;
+}
+
 .card--dealer {
   background-color: transparent;
 }

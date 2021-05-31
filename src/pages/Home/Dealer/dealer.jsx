@@ -34,6 +34,7 @@ const BorderLinearProgress = withStyles((theme) => ({
 const Dealer = () => {
   const { user } = useAuth();
   const [data, setData] = useState({ user: 1 });
+  const [currentPoints, setCurrentPoints] = useState(null);
   const [progressValues, setProgressValues] = useState({
     purina: 0,
     ladrina: 0,
@@ -124,14 +125,29 @@ const Dealer = () => {
     getUserInfo();
   }, [user]);
 
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(`${backendSQL.url}/transactions/points/${user.id}`)
+        .then(({ data: points }) => {
+          setCurrentPoints(points);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  }, [user]);
+
   return data ? (
     <Wrapper>
       <div className="dealer">
         <div className="progress__data">
           <div className="card progress__info--dealer card--dealer">
-            <h2 className="card__title card__title--white">
-              Tu Avance: {getMonthName(new Date().getMonth() + 1)}
-            </h2>
+            <h2 className="card__title card__title--white">Tu Avance</h2>
+            <div className="month-info">
+              <p>Mes: {getMonthName(new Date().getMonth() + 1)}</p>
+              <p>Puntos Actuales: {currentPoints}</p>
+            </div>
             <div className="dealer-awards">
               <div className="award-container">
                 <h3>Purina</h3>
