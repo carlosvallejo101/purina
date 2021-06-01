@@ -150,6 +150,23 @@ const Dealer = () => {
             </div>
             <div className="dealer-awards">
               <div className="award-container">
+                {wasObjectiveReached.purina ? (
+                  <BeenhereIcon
+                    style={{
+                      fill: '#96D93B',
+                      fontSize: '50px',
+                    }}
+                    className="hover-icon"
+                  />
+                ) : (
+                  <LockIcon
+                    style={{
+                      fill: '#c53333',
+                      fontSize: '50px',
+                    }}
+                    className="hover-icon"
+                  />
+                )}
                 <h3>Purina</h3>
                 <div className="award-info">
                   <div className="award-progress">
@@ -192,28 +209,6 @@ const Dealer = () => {
                     </table>
                   </div>
                   <div className="award-visual">
-                    <div className="award-visual__img">
-                      <img src={OptiStart} alt={OptiStart} />
-                      {wasObjectiveReached.purina ? (
-                        <div className="award-visual__hover">
-                          <BeenhereIcon
-                            style={{
-                              fill: '#96D93B',
-                              fontSize: '50px',
-                            }}
-                          />
-                        </div>
-                      ) : (
-                        <div className="award-visual__hover award-visual__hover--locked">
-                          <LockIcon
-                            style={{
-                              fill: '#c53333',
-                              fontSize: '50px',
-                            }}
-                          />{' '}
-                        </div>
-                      )}
-                    </div>
                     <div className="progress__bar progress__bar--dealer">
                       <p className="progress__quote">
                         {getQuote(progressValues.purina)}
@@ -233,6 +228,23 @@ const Dealer = () => {
                 </div>
               </div>
               <div className="award-container">
+                {wasObjectiveReached.ladrina ? (
+                  <BeenhereIcon
+                    style={{
+                      fill: '#96D93B',
+                      fontSize: '50px',
+                    }}
+                    className="hover-icon"
+                  />
+                ) : (
+                  <LockIcon
+                    style={{
+                      fill: '#c53333',
+                      fontSize: '50px',
+                    }}
+                    className="hover-icon"
+                  />
+                )}
                 <h3>Ladrina</h3>
                 <div className="award-info">
                   <div className="award-progress">
@@ -275,28 +287,6 @@ const Dealer = () => {
                     </table>
                   </div>
                   <div className="award-visual">
-                    <div className="award-visual__img">
-                      <img src={OptiStart} alt={OptiStart} />
-                      {wasObjectiveReached.ladrina ? (
-                        <div className="award-visual__hover">
-                          <BeenhereIcon
-                            style={{
-                              fill: '#96D93B',
-                              fontSize: '50px',
-                            }}
-                          />
-                        </div>
-                      ) : (
-                        <div className="award-visual__hover award-visual__hover--locked">
-                          <LockIcon
-                            style={{
-                              fill: '#c53333',
-                              fontSize: '50px',
-                            }}
-                          />{' '}
-                        </div>
-                      )}
-                    </div>
                     <div className="progress__bar">
                       <p className="progress__quote">
                         {getQuote(progressValues.ladrina)}
@@ -316,6 +306,23 @@ const Dealer = () => {
                 </div>
               </div>
               <div className="award-container">
+                {wasObjectiveReached.gatsy ? (
+                  <BeenhereIcon
+                    style={{
+                      fill: '#96D93B',
+                      fontSize: '50px',
+                    }}
+                    className="hover-icon"
+                  />
+                ) : (
+                  <LockIcon
+                    style={{
+                      fill: '#c53333',
+                      fontSize: '50px',
+                    }}
+                    className="hover-icon"
+                  />
+                )}
                 <h3>Gatsy</h3>
                 <div className="award-info">
                   <div className="award-progress">
@@ -358,28 +365,6 @@ const Dealer = () => {
                     </table>
                   </div>
                   <div className="award-visual">
-                    <div className="award-visual__img">
-                      <img src={OptiStart} alt={OptiStart} />
-                      {wasObjectiveReached.gatsy ? (
-                        <div className="award-visual__hover">
-                          <BeenhereIcon
-                            style={{
-                              fill: '#96D93B',
-                              fontSize: '50px',
-                            }}
-                          />
-                        </div>
-                      ) : (
-                        <div className="award-visual__hover award-visual__hover--locked">
-                          <LockIcon
-                            style={{
-                              fill: '#c53333',
-                              fontSize: '50px',
-                            }}
-                          />{' '}
-                        </div>
-                      )}
-                    </div>
                     <div className="progress__bar">
                       <p className="progress__quote">
                         {getQuote(progressValues.gatsy)}
