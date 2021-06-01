@@ -15,6 +15,10 @@
   align-items: center;
 }
 
+.progress__data--slim {
+  margin-bottom: 0;
+}
+
 .type__title {
   color: white;
   margin: 0;

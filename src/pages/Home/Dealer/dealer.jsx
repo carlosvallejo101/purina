@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import BeenhereIcon from '@material-ui/icons/Beenhere';
 import LockIcon from '@material-ui/icons/Lock';
@@ -141,7 +142,7 @@ const Dealer = () => {
   return data ? (
     <Wrapper>
       <div className="dealer">
-        <div className="progress__data">
+        <div className="progress__data progress__data--slim">
           <div className="card progress__info--dealer card--dealer">
             <h2 className="card__title card__title--white">Tu Avance</h2>
             <div className="month-info">
@@ -385,6 +386,12 @@ const Dealer = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className="dealer-store">
+          {/* <h2 className="card__title--white">Tus premios escogidos:</h2> */}
+          <Link className="dealer-store__button" to="/store">
+            Visitar Tienda
+          </Link>
         </div>
       </div>
     </Wrapper>
