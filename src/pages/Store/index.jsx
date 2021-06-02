@@ -10,6 +10,7 @@ import Wrapper from '../../components/Wrapper/wrapper.jsx';
 export const Store = () => {
   const { user } = useAuth();
   const [products, setProducts] = useState({});
+  const [availablePoints, setAvailablePoints] = useState(null);
   const [remainingPoints, setRemainingPoints] = useState(null);
   const [cart, setCart] = useState([]);
 
@@ -29,6 +30,8 @@ export const Store = () => {
         .get(`${backendSQL.url}/transactions/points/${user.id}`)
         .then(({ data: points }) => {
           setRemainingPoints(points);
+          setAvailablePoints(points);
+          setCart(JSON.parse(localStorage.getItem('purinaCart')));
         })
         .catch((e) => {
           console.log(e);
@@ -38,6 +41,9 @@ export const Store = () => {
 
   useEffect(() => {
     updateRemainingPoints();
+    if (cart.length > 0) {
+      localStorage.setItem('purinaCart', JSON.stringify(cart));
+    }
   }, [cart]);
 
   const addToCart = (product) => {
@@ -59,7 +65,15 @@ export const Store = () => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper
+      isDealer={true}
+      dealerInfo={{
+        isInStore: true,
+        availablePoints,
+        remainingPoints,
+        chosenAwards: cart.length,
+      }}
+    >
       <div className="store">
         <div className="store-products">
           <div className="container">
@@ -70,12 +84,9 @@ export const Store = () => {
               en el rango de puntos. <br /> Si finalizaste puedes regresar a
               revisar tu pedido para poder finalizarlo.
             </p>
-            <div className="store-points">
-              <p>Puntos restantes: {remainingPoints}</p>
-              <Link to="/home" className="store-points__button">
-                Revisar Pedido
-              </Link>
-            </div>
+            {/* {cart.map((item) => (
+              <p className="text-light">{item.name}</p>
+            ))} */}
             <div className="store-product-items">
               {products.length > 0 &&
                 products.map((product) => (
@@ -99,7 +110,6 @@ export const Store = () => {
                     </div>
                     <div className="store-product-info">
                       <div className="store-product-info-top">
-                        {/* <h2 className="sm-title">Purina</h2> */}
                         <div className="rating">
                           <span>
                             <i className="fas fa-star" />

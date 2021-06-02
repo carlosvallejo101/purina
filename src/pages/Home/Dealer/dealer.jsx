@@ -140,14 +140,16 @@ const Dealer = () => {
   }, [user]);
 
   return data ? (
-    <Wrapper>
+    <Wrapper
+      isDealer={true}
+      dealerInfo={{ isInStore: false, availablePoints: currentPoints }}
+    >
       <div className="dealer">
         <div className="progress__data progress__data--slim">
           <div className="card progress__info--dealer card--dealer">
             <h2 className="card__title card__title--white">Tu Avance</h2>
             <div className="month-info">
               <p>Mes: {getMonthName(new Date().getMonth() + 1)}</p>
-              <p>Puntos Actuales: {currentPoints}</p>
             </div>
             <div className="dealer-awards">
               <div className="award-container">
@@ -386,12 +388,6 @@ const Dealer = () => {
               </div>
             </div>
           </div>
-        </div>
-        <div className="dealer-store">
-          {/* <h2 className="card__title--white">Tus premios escogidos:</h2> */}
-          <Link className="dealer-store__button" to="/store">
-            Visitar Tienda
-          </Link>
         </div>
       </div>
     </Wrapper>
