@@ -6,18 +6,9 @@
   --carribean-green: #f7c467;
   --gray: #ededed;
 }
-/* * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-} */
-/* body {
-  font-family: 'Quicksand', sans-serif;
-} */
 
 /* Utility stylings */
 .store {
-  /* background-color: red; */
   display: flex;
   justify-content: center;
 }
@@ -39,11 +30,9 @@ img {
   color: white;
 }
 .lg-title {
-  /* font-size: 2.5rem; */
   font-size: 1.8rem;
   font-weight: 500;
   text-align: center;
-  /* padding: 1.3rem 0; */
   opacity: 0.9;
   margin: 0;
 }
@@ -57,14 +46,10 @@ img {
   text-transform: uppercase;
 }
 .text-light {
-  /* font-size: 1rem; */
   font-size: 1rem;
-  /* font-weight: 600; */
   font-weight: 400;
   line-height: 1.5;
-  /* opacity: 0.5; */
   opacity: 0.7;
-  /* margin: 0.4rem 0; */
   width: 100%;
   margin: 0;
   color: white;
@@ -90,10 +75,10 @@ img {
 }
 
 /* store-product section */
-.store-products {
-  /* background: var(--alice-blue); */
-  /* padding: 3.2rem 0; */
-}
+/* .store-products { */
+/* background: var(--alice-blue); */
+/* padding: 3.2rem 0; */
+/* } */
 .store-products .text-light {
   text-align: center;
   width: 70%;
@@ -110,12 +95,15 @@ img {
   background: var(--gray);
   padding: 3rem 0.5rem 2rem 0.5rem;
   cursor: pointer;
+  height: 200px;
 }
 .store-product-img {
   background: var(--white-light);
   box-shadow: 0 0 20px 10px var(--white-light);
-  width: 200px;
-  height: 200px;
+  /* width: 200px;
+  height: 200px; */
+  width: 150px;
+  height: 150px;
   margin: 0 auto;
   border-radius: 50%;
   transition: background 0.5s ease;
@@ -159,7 +147,9 @@ img {
 }
 .store-product-info {
   background: white;
-  padding: 2rem;
+  /* padding: 2rem; */
+  padding: 20px 0px 10px 20px;
+  /* height: 30px; */
 }
 .store-product-info-top {
   display: flex;
@@ -276,7 +266,7 @@ img {
   }
   .store-product-items {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
   .store-product-col-r-bottom {
     display: grid;
@@ -298,9 +288,10 @@ img {
 
 @media screen and (min-width: 1336px) {
   .store-product-items {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
   }
   .store-product-collection-wrapper {
+    background-color: red;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
