@@ -3,7 +3,7 @@ import axios from 'axios';
 import BeenhereIcon from '@material-ui/icons/Beenhere';
 
 import './store.css';
-import { backendSQL } from '../../config';
+import { backendSQL, backendLala } from '../../config';
 import { useAuth } from '../../auth/useAuth.jsx';
 import Wrapper from '../../components/Wrapper/wrapper.jsx';
 
@@ -109,7 +109,10 @@ export const Store = () => {
                     )}
                     <div className="store-product-content">
                       <div className="store-product-img">
-                        <img src={product.imageName} alt={product.imageName} />
+                        <img
+                          src={`${backendLala.url}/${product.imageName}`}
+                          alt={product.imageName}
+                        />
                       </div>
                       <div className="store-product-btns">
                         {cart.find((item) => item.id === product.id) ? (
