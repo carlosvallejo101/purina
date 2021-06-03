@@ -111,7 +111,7 @@ export const Store = () => {
                       <div className="store-product-img">
                         <img
                           // src={`${backendLala.url}/${product.imageName}`}
-                          src={`http://lala2.cientoungrados.com/uploads/awards/${product.imageName}`}
+                          src={`https://clubderecicladores.com/uploads/awards/${product.imageName}`}
                           alt={product.imageName}
                         />
                       </div>
