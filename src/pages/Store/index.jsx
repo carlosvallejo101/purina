@@ -8,7 +8,7 @@ import { useAuth } from '../../auth/useAuth.jsx';
 import Wrapper from '../../components/Wrapper/wrapper.jsx';
 
 export const Store = () => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [products, setProducts] = useState({});
   const [availablePoints, setAvailablePoints] = useState(null);
   const [remainingPoints, setRemainingPoints] = useState(null);
@@ -16,6 +16,7 @@ export const Store = () => {
 
   useEffect(() => {
     if (user) {
+      localStorage.setItem('purinaCart', JSON.stringify([]));
       axios
         .get(
           `${backendSQL.url}/awards?awardSubcategoryId=98&participantId=${user.id}`
@@ -77,6 +78,9 @@ export const Store = () => {
         availablePoints,
         remainingPoints,
         chosenAwards: cart ? cart.length : 0,
+        cart,
+        setCart,
+        setUser,
       }}
     >
       <div className="store">
@@ -120,16 +124,21 @@ export const Store = () => {
                             </span>
                           </button>
                         ) : (
-                          <button
-                            type="button"
-                            className="btn-cart"
-                            onClick={() => addToCart(product)}
-                          >
-                            añadir al carrito
-                            <span>
-                              <i className="fas fa-plus" />
-                            </span>
-                          </button>
+                          <>
+                            {parseFloat(product.programAwardCosts[0].shopCost) <
+                              parseFloat(remainingPoints) && (
+                              <button
+                                type="button"
+                                className="btn-cart"
+                                onClick={() => addToCart(product)}
+                              >
+                                añadir al carrito
+                                <span>
+                                  <i className="fas fa-plus" />
+                                </span>
+                              </button>
+                            )}
+                          </>
                         )}
                       </div>
                     </div>

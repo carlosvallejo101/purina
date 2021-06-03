@@ -13,5 +13,5 @@ export const useAuth = () => {
     window.localStorage.removeItem('purinaUser');
   };
 
-  return { user, logout };
+  return { user, logout, setUser };
 };
