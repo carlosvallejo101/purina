@@ -1,0 +1,20 @@
+.dealer-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 0;
+}
+
+.dealer-footer__line {
+  background-color: red;
+  width: 90%;
+  height: 8px;
+}
+
+.dealer-footer__logo {
+  width: 100%;
+}
+
+@media screen and (min-width: 420px) {
+}

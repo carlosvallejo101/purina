@@ -26,13 +26,15 @@
 }
 
 .dealer-store__button {
-  background: #f7c467;
+  /* background: #f7c467; */
+  /* background-color: white; */
+  background-color: #2675ba;
   border: none;
   width: 100px;
   padding: 10px 20px;
   border-radius: 8px;
   cursor: pointer;
-  color: black;
+  color: white;
   text-decoration: none;
   font-size: 14px;
   margin-top: 10px;
@@ -41,14 +43,16 @@
 
 .dealer-store__button--confirm {
   /* width: 150px; */
-  background: #f7c467;
-
+  /* background: #f7c467; */
+  /* background-color: white; */
+  background-color: #2675ba;
   border: none;
   width: 140px;
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
+  padding: 10px 0;
   border-radius: 8px;
   cursor: pointer;
-  color: black;
+  color: white;
   text-decoration: none;
   font-size: 14px;
   margin-top: 10px;

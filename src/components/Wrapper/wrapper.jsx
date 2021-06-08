@@ -8,7 +8,6 @@ const Wrapper = ({ children, isDealer = false, dealerInfo }) => {
   return (
     <div className="wrapper">
       {isDealer ? <HeaderDealer dealerInfo={dealerInfo} /> : <Header />}
-      {/* <Header /> */}
       <div className="wrapper__body">{children}</div>
       <Footer />
     </div>

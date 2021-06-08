@@ -12,6 +12,7 @@ import { backendSQL } from '../../../config';
 import { useAuth } from '../../../auth/useAuth.jsx';
 
 import Wrapper from '../../../components/Wrapper/wrapper.jsx';
+import DealerWrapper from '../../../components/Wrapper/DealerWrapper.jsx';
 import OptiStart from '../../../assets/img/optistart.png';
 import { getRemaining } from '../../../helpers/getRemaining';
 import { getMonthName } from '../../../helpers/getMonthName';
@@ -28,7 +29,8 @@ const BorderLinearProgress = withStyles((theme) => ({
   },
   bar: {
     borderRadius: 5,
-    backgroundColor: '#96D93B',
+    // backgroundColor: '#96D93B',
+    backgroundColor: '#00953B',
   },
 }))(LinearProgress);
 
@@ -140,14 +142,14 @@ const Dealer = () => {
   }, [user]);
 
   return data ? (
-    <Wrapper
+    <DealerWrapper
       isDealer={true}
       dealerInfo={{ isInStore: false, availablePoints: currentPoints }}
     >
       <div className="dealer">
         <div className="progress__data progress__data--slim">
           <div className="card progress__info--dealer card--dealer">
-            <h2 className="card__title card__title--white">Tu Avance</h2>
+            <h2 className="card__title card__title--blue">Tu Avance</h2>
             <div className="month-info">
               <p>Mes: {getMonthName(new Date().getMonth() + 1)}</p>
             </div>
@@ -156,7 +158,8 @@ const Dealer = () => {
                 {wasObjectiveReached.purina ? (
                   <BeenhereIcon
                     style={{
-                      fill: '#96D93B',
+                      // fill: '#96D93B',
+                      fill: '#00953B',
                       fontSize: '50px',
                     }}
                     className="hover-icon"
@@ -170,7 +173,7 @@ const Dealer = () => {
                     className="hover-icon"
                   />
                 )}
-                <h3>Purina</h3>
+                <h3>Dog Chow + Cat Chow</h3>
                 <div className="award-info">
                   <div className="award-progress">
                     <table className="award-table">
@@ -234,7 +237,8 @@ const Dealer = () => {
                 {wasObjectiveReached.ladrina ? (
                   <BeenhereIcon
                     style={{
-                      fill: '#96D93B',
+                      // fill: '#96D93B',
+                      fill: '#00953B',
                       fontSize: '50px',
                     }}
                     className="hover-icon"
@@ -312,7 +316,8 @@ const Dealer = () => {
                 {wasObjectiveReached.gatsy ? (
                   <BeenhereIcon
                     style={{
-                      fill: '#96D93B',
+                      // fill: '#96D93B',
+                      fill: '#00953B',
                       fontSize: '50px',
                     }}
                     className="hover-icon"
@@ -390,7 +395,7 @@ const Dealer = () => {
           </div>
         </div>
       </div>
-    </Wrapper>
+    </DealerWrapper>
   ) : (
     <p>Cargando...</p>
   );

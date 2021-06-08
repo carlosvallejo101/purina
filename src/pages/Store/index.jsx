@@ -5,7 +5,8 @@ import BeenhereIcon from '@material-ui/icons/Beenhere';
 import './store.css';
 import { backendSQL } from '../../config';
 import { useAuth } from '../../auth/useAuth.jsx';
-import Wrapper from '../../components/Wrapper/wrapper.jsx';
+// import Wrapper from '../../components/Wrapper/wrapper.jsx';
+import DealerWrapper from '../../components/Wrapper/DealerWrapper.jsx';
 
 export const Store = () => {
   const { user, setUser } = useAuth();
@@ -71,7 +72,7 @@ export const Store = () => {
   };
 
   return (
-    <Wrapper
+    <DealerWrapper
       isDealer={true}
       dealerInfo={{
         isInStore: true,
@@ -177,6 +178,6 @@ export const Store = () => {
           </div>
         </div>
       </div>
-    </Wrapper>
+    </DealerWrapper>
   );
 };

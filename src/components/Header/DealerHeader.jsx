@@ -6,7 +6,8 @@ import axios from 'axios';
 import { backendSQL } from '../../config';
 import { useAuth } from '../../auth/useAuth.jsx';
 import './header-dealer.css';
-import LogoProplan from '../../assets/img/logo_proplan.png';
+// import LogoProplan from '../../assets/img/logo_proplan.png';
+import LogoConquista from '../../assets/img/logo_conquista-dealer.png';
 
 const DealerHeader = ({ dealerInfo }) => {
   const { user } = useAuth();
@@ -27,7 +28,8 @@ const DealerHeader = ({ dealerInfo }) => {
       icon: 'warning',
       type: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#a5dc86',
+      // confirmButtonColor: '#a5dc86',
+      confirmButtonColor: '#00953B',
       confirmButtonText: 'Si, enviar pedido.',
       cancelButtonText: 'Cancelar',
     }).then((result) => {
@@ -74,7 +76,7 @@ const DealerHeader = ({ dealerInfo }) => {
 
   return (
     <div className="header-dealer">
-      <img src={LogoProplan} alt="logo" />
+      <img src={LogoConquista} alt="logo" />
       <div className="header-info">
         {user && <h2>Hola! {user.name.split(' ')[0]}</h2>}
         <p>Puntos Disponibles: {availablePoints}</p>
@@ -85,7 +87,7 @@ const DealerHeader = ({ dealerInfo }) => {
         ) : (
           <>
             <p>Puntos Restantes: {remainingPoints}</p>
-            <p>Premios escogidos: {chosenAwards}</p>
+            <p>Premios Seleccionados: {chosenAwards}</p>
             {cart && cart.length > 0 && (
               <>
                 <button
