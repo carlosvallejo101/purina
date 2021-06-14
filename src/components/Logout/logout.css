@@ -10,3 +10,7 @@
   padding: 0;
   color: #fff;
 }
+
+.superpose {
+  position: absolute;
+}

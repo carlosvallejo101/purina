@@ -6,7 +6,8 @@ import { useHistory } from 'react-router-dom';
 
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-const Logout = () => {
+const Logout = (props) => {
+  const { superpose } = props;
   const { user, logout } = useAuth();
   const history = useHistory();
 
@@ -15,9 +16,11 @@ const Logout = () => {
     history.push('/login');
   };
 
+  const classStyle = superpose ? 'logout superpose' : 'logout';
+
   return (
     user && (
-      <div className="logout">
+      <div className={classStyle}>
         <p>Salir</p>
         <IconButton onClick={logingOut}>
           <ExitToAppIcon style={{ fill: '#fff' }} />
