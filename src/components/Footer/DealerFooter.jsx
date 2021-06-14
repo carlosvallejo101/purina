@@ -9,7 +9,7 @@ import FondoFooter from '../../assets/svg/triangulo-dealer.svg';
 const DealerFooter = () => {
   return (
     <footer className="dealer-footer">
-      {/* <Logout /> */}
+      <Logout superpose={true} />
       {/* <div className="dealer-footer__line"></div> */}
       <img
         className="dealer-footer__logo"

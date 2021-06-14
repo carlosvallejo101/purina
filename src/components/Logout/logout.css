@@ -10,3 +10,12 @@
   padding: 0;
   color: #fff;
 }
+
+.superpose {
+  position: absolute;
+  background-color: #2675ba;
+  padding-top: 5px;
+  margin-left: 10px;
+  border-radius: 10px;
+  /* bottom: -30px; */
+}
