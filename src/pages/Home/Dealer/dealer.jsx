@@ -9,10 +9,13 @@ import './dealer.css';
 import axios from 'axios';
 import { backendSQL } from '../../../config';
 import { useAuth } from '../../../auth/useAuth.jsx';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 import DealerWrapper from '../../../components/Wrapper/DealerWrapper.jsx';
 import { getRemaining } from '../../../helpers/getRemaining';
-import { getMonthName } from '../../../helpers/getMonthName';
 import { formatNumber } from '../../../helpers/formatNumber';
 
 const BorderLinearProgress = withStyles((theme) => ({
@@ -30,9 +33,22 @@ const BorderLinearProgress = withStyles((theme) => ({
   },
 }))(LinearProgress);
 
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
+    },
+  })
+);
+
 const Dealer = () => {
+  const classes = useStyles();
   const { user } = useAuth();
-  const [data, setData] = useState({ user: 1 });
+  const [data, setData] = useState();
   const [currentPoints, setCurrentPoints] = useState(null);
   const [progressValues, setProgressValues] = useState({
     purina: 0,
@@ -44,14 +60,17 @@ const Dealer = () => {
     ladrina: false,
     gatsy: false,
   });
+  const [monthHasData, setMonthHasData] = useState(false);
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
 
   useEffect(() => {
     async function getUserInfo() {
       if (user) {
-        const currentMonth = new Date().getMonth() + 1;
         const { data: objectives } = await axios.get(
-          `${backendSQL.url}/objectives?month=${currentMonth}&participantId=${user.id}`
+          `${backendSQL.url}/objectives?month=${selectedMonth}&participantId=${user.id}`
         );
+
+        objectives.length > 0 ? setMonthHasData(true) : setMonthHasData(false);
 
         let objectivePurina,
           objectiveLadrina,
@@ -123,7 +142,7 @@ const Dealer = () => {
     }
     getUserInfo();
     // eslint-disable-next-line
-  }, [user]);
+  }, [user, selectedMonth]);
 
   useEffect(() => {
     if (user) {
@@ -138,6 +157,10 @@ const Dealer = () => {
     }
   }, [user]);
 
+  const handleChange = (event) => {
+    setSelectedMonth(event.target.value);
+  };
+
   return data ? (
     <DealerWrapper
       isDealer={true}
@@ -148,244 +171,275 @@ const Dealer = () => {
           <div className="card progress__info--dealer card--dealer">
             <h2 className="card__title card__title--blue">Tu Avance</h2>
             <div className="month-info">
-              <p>Mes: {getMonthName(new Date().getMonth() + 1)}</p>
+              <FormControl variant="outlined" className={classes.formControl}>
+                <InputLabel htmlFor="outlined-age-native-simple">
+                  Mes
+                </InputLabel>
+                <Select
+                  native
+                  value={selectedMonth}
+                  onChange={handleChange}
+                  label="Mes"
+                  inputProps={{
+                    name: 'Mes',
+                    id: 'outlined-age-native-simple',
+                  }}
+                >
+                  <option value={1}>Enero</option>
+                  <option value={2}>Febrero</option>
+                  <option value={3}>Marzo</option>
+                  <option value={4}>Abril</option>
+                  <option value={5}>Mayo</option>
+                  <option value={6}>Junio</option>
+                  <option value={7}>Julio</option>
+                  <option value={8}>Agosto</option>
+                  <option value={9}>Septiembre</option>
+                  <option value={10}>Octubre</option>
+                  <option value={11}>Noviembre</option>
+                  <option value={12}>Diciembre</option>
+                </Select>
+              </FormControl>
             </div>
-            <div className="dealer-awards">
-              <div className="award-container">
-                {wasObjectiveReached.purina ? (
-                  <BeenhereIcon
-                    style={{
-                      fill: '#00953B',
-                      fontSize: '50px',
-                    }}
-                    className="hover-icon"
-                  />
-                ) : (
-                  <LockIcon
-                    style={{
-                      fill: '#c53333',
-                      fontSize: '50px',
-                    }}
-                    className="hover-icon"
-                  />
-                )}
-                <h3>Dog Chow + Cat Chow</h3>
-                <div className="award-info">
-                  <div className="award-progress">
-                    <table className="award-table">
-                      <thead>
-                        <tr className="item">
-                          <td>Tu objetivo trimestral: </td>
-                          <td>
-                            <NumberFormat
-                              value={data.objectivePurina}
-                              thousandSeparator={true}
-                              prefix={'$ '}
-                              displayType={'text'}
+            {monthHasData ? (
+              <div className="dealer-awards">
+                <div className="award-container">
+                  {wasObjectiveReached.purina ? (
+                    <BeenhereIcon
+                      style={{
+                        fill: '#00953B',
+                        fontSize: '50px',
+                      }}
+                      className="hover-icon"
+                    />
+                  ) : (
+                    <LockIcon
+                      style={{
+                        fill: '#c53333',
+                        fontSize: '50px',
+                      }}
+                      className="hover-icon"
+                    />
+                  )}
+                  <h3>Dog Chow + Cat Chow</h3>
+                  <div className="award-info">
+                    <div className="award-progress">
+                      <table className="award-table">
+                        <thead>
+                          <tr className="item">
+                            <td>Tu objetivo trimestral: </td>
+                            <td>
+                              <NumberFormat
+                                value={data.objectivePurina}
+                                thousandSeparator={true}
+                                prefix={'$ '}
+                                displayType={'text'}
+                              />
+                            </td>
+                          </tr>
+                          <tr className="item">
+                            <td>Resultado acumulado: </td>
+                            <td>
+                              <NumberFormat
+                                value={data.totalPurina}
+                                thousandSeparator={true}
+                                prefix={'$ '}
+                                displayType={'text'}
+                              />
+                            </td>
+                          </tr>
+                          <tr className="item last">
+                            <td>Te falta: </td>
+                            <td>
+                              <NumberFormat
+                                value={data.remainingPurina}
+                                thousandSeparator={true}
+                                prefix={'$ '}
+                                displayType={'text'}
+                              />
+                            </td>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+                    <div className="award-visual">
+                      <div className="progress__bar progress__bar--dealer">
+                        <p className="progress__quote">
+                          {getQuote(progressValues.purina)}
+                        </p>
+                        <div className="progress__bar-container">
+                          <div>
+                            <BorderLinearProgress
+                              variant="determinate"
+                              value={progressValues.purina}
+                              thickness={50}
                             />
-                          </td>
-                        </tr>
-                        <tr className="item">
-                          <td>Resultado acumulado: </td>
-                          <td>
-                            <NumberFormat
-                              value={data.totalPurina}
-                              thousandSeparator={true}
-                              prefix={'$ '}
-                              displayType={'text'}
-                            />
-                          </td>
-                        </tr>
-                        <tr className="item last">
-                          <td>Te falta: </td>
-                          <td>
-                            <NumberFormat
-                              value={data.remainingPurina}
-                              thousandSeparator={true}
-                              prefix={'$ '}
-                              displayType={'text'}
-                            />
-                          </td>
-                        </tr>
-                      </thead>
-                    </table>
-                  </div>
-                  <div className="award-visual">
-                    <div className="progress__bar progress__bar--dealer">
-                      <p className="progress__quote">
-                        {getQuote(progressValues.purina)}
-                      </p>
-                      <div className="progress__bar-container">
-                        <div>
-                          <BorderLinearProgress
-                            variant="determinate"
-                            value={progressValues.purina}
-                            thickness={50}
-                          />
+                          </div>
+                          <p>{progressValues.purina}%</p>
                         </div>
-                        <p>{progressValues.purina}%</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="award-container">
+                  {wasObjectiveReached.ladrina ? (
+                    <BeenhereIcon
+                      style={{
+                        fill: '#00953B',
+                        fontSize: '50px',
+                      }}
+                      className="hover-icon"
+                    />
+                  ) : (
+                    <LockIcon
+                      style={{
+                        fill: '#c53333',
+                        fontSize: '50px',
+                      }}
+                      className="hover-icon"
+                    />
+                  )}
+                  <h3>Ladrina</h3>
+                  <div className="award-info">
+                    <div className="award-progress">
+                      <table className="award-table">
+                        <thead>
+                          <tr className="item">
+                            <td>Tu objetivo trimestral: </td>
+                            <td>
+                              <NumberFormat
+                                value={data.objectiveLadrina}
+                                thousandSeparator={true}
+                                prefix={'$ '}
+                                displayType={'text'}
+                              />
+                            </td>
+                          </tr>
+                          <tr className="item">
+                            <td>Resultado acumulado: </td>
+                            <td>
+                              <NumberFormat
+                                value={data.totalLadrina}
+                                thousandSeparator={true}
+                                prefix={'$ '}
+                                displayType={'text'}
+                              />
+                            </td>
+                          </tr>
+                          <tr className="item last">
+                            <td>Te falta: </td>
+                            <td>
+                              <NumberFormat
+                                value={data.remainingLadrina}
+                                thousandSeparator={true}
+                                prefix={'$ '}
+                                displayType={'text'}
+                              />
+                            </td>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+                    <div className="award-visual">
+                      <div className="progress__bar">
+                        <p className="progress__quote">
+                          {getQuote(progressValues.ladrina)}
+                        </p>
+                        <div className="progress__bar-container">
+                          <div>
+                            <BorderLinearProgress
+                              variant="determinate"
+                              value={progressValues.ladrina}
+                              thickness={50}
+                            />
+                          </div>
+                          <p>{progressValues.ladrina}%</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="award-container">
+                  {wasObjectiveReached.gatsy ? (
+                    <BeenhereIcon
+                      style={{
+                        fill: '#00953B',
+                        fontSize: '50px',
+                      }}
+                      className="hover-icon"
+                    />
+                  ) : (
+                    <LockIcon
+                      style={{
+                        fill: '#c53333',
+                        fontSize: '50px',
+                      }}
+                      className="hover-icon"
+                    />
+                  )}
+                  <h3>Gatsy</h3>
+                  <div className="award-info">
+                    <div className="award-progress">
+                      <table className="award-table">
+                        <thead>
+                          <tr className="item">
+                            <td>Tu objetivo trimestral: </td>
+                            <td>
+                              <NumberFormat
+                                value={data.objectiveGatsy}
+                                thousandSeparator={true}
+                                prefix={'$ '}
+                                displayType={'text'}
+                              />
+                            </td>
+                          </tr>
+                          <tr className="item">
+                            <td>Resultado acumulado: </td>
+                            <td>
+                              <NumberFormat
+                                value={data.totalGatsy}
+                                thousandSeparator={true}
+                                prefix={'$ '}
+                                displayType={'text'}
+                              />
+                            </td>
+                          </tr>
+                          <tr className="item last">
+                            <td>Te falta: </td>
+                            <td>
+                              <NumberFormat
+                                value={data.remainingGatsy}
+                                thousandSeparator={true}
+                                prefix={'$ '}
+                                displayType={'text'}
+                              />
+                            </td>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+                    <div className="award-visual">
+                      <div className="progress__bar">
+                        <p className="progress__quote">
+                          {getQuote(progressValues.gatsy)}
+                        </p>
+                        <div className="progress__bar-container">
+                          <div>
+                            <BorderLinearProgress
+                              variant="determinate"
+                              value={progressValues.gatsy}
+                              thickness={50}
+                            />
+                          </div>
+                          <p>{progressValues.gatsy}%</p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="award-container">
-                {wasObjectiveReached.ladrina ? (
-                  <BeenhereIcon
-                    style={{
-                      fill: '#00953B',
-                      fontSize: '50px',
-                    }}
-                    className="hover-icon"
-                  />
-                ) : (
-                  <LockIcon
-                    style={{
-                      fill: '#c53333',
-                      fontSize: '50px',
-                    }}
-                    className="hover-icon"
-                  />
-                )}
-                <h3>Ladrina</h3>
-                <div className="award-info">
-                  <div className="award-progress">
-                    <table className="award-table">
-                      <thead>
-                        <tr className="item">
-                          <td>Tu objetivo trimestral: </td>
-                          <td>
-                            <NumberFormat
-                              value={data.objectiveLadrina}
-                              thousandSeparator={true}
-                              prefix={'$ '}
-                              displayType={'text'}
-                            />
-                          </td>
-                        </tr>
-                        <tr className="item">
-                          <td>Resultado acumulado: </td>
-                          <td>
-                            <NumberFormat
-                              value={data.totalLadrina}
-                              thousandSeparator={true}
-                              prefix={'$ '}
-                              displayType={'text'}
-                            />
-                          </td>
-                        </tr>
-                        <tr className="item last">
-                          <td>Te falta: </td>
-                          <td>
-                            <NumberFormat
-                              value={data.remainingLadrina}
-                              thousandSeparator={true}
-                              prefix={'$ '}
-                              displayType={'text'}
-                            />
-                          </td>
-                        </tr>
-                      </thead>
-                    </table>
-                  </div>
-                  <div className="award-visual">
-                    <div className="progress__bar">
-                      <p className="progress__quote">
-                        {getQuote(progressValues.ladrina)}
-                      </p>
-                      <div className="progress__bar-container">
-                        <div>
-                          <BorderLinearProgress
-                            variant="determinate"
-                            value={progressValues.ladrina}
-                            thickness={50}
-                          />
-                        </div>
-                        <p>{progressValues.ladrina}%</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="award-container">
-                {wasObjectiveReached.gatsy ? (
-                  <BeenhereIcon
-                    style={{
-                      fill: '#00953B',
-                      fontSize: '50px',
-                    }}
-                    className="hover-icon"
-                  />
-                ) : (
-                  <LockIcon
-                    style={{
-                      fill: '#c53333',
-                      fontSize: '50px',
-                    }}
-                    className="hover-icon"
-                  />
-                )}
-                <h3>Gatsy</h3>
-                <div className="award-info">
-                  <div className="award-progress">
-                    <table className="award-table">
-                      <thead>
-                        <tr className="item">
-                          <td>Tu objetivo trimestral: </td>
-                          <td>
-                            <NumberFormat
-                              value={data.objectiveGatsy}
-                              thousandSeparator={true}
-                              prefix={'$ '}
-                              displayType={'text'}
-                            />
-                          </td>
-                        </tr>
-                        <tr className="item">
-                          <td>Resultado acumulado: </td>
-                          <td>
-                            <NumberFormat
-                              value={data.totalGatsy}
-                              thousandSeparator={true}
-                              prefix={'$ '}
-                              displayType={'text'}
-                            />
-                          </td>
-                        </tr>
-                        <tr className="item last">
-                          <td>Te falta: </td>
-                          <td>
-                            <NumberFormat
-                              value={data.remainingGatsy}
-                              thousandSeparator={true}
-                              prefix={'$ '}
-                              displayType={'text'}
-                            />
-                          </td>
-                        </tr>
-                      </thead>
-                    </table>
-                  </div>
-                  <div className="award-visual">
-                    <div className="progress__bar">
-                      <p className="progress__quote">
-                        {getQuote(progressValues.gatsy)}
-                      </p>
-                      <div className="progress__bar-container">
-                        <div>
-                          <BorderLinearProgress
-                            variant="determinate"
-                            value={progressValues.gatsy}
-                            thickness={50}
-                          />
-                        </div>
-                        <p>{progressValues.gatsy}%</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ) : (
+              <p>El mes seleccionado no tiene datos disponibles.</p>
+            )}
           </div>
         </div>
       </div>
