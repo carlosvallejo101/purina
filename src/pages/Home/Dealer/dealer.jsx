@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import BeenhereIcon from '@material-ui/icons/Beenhere';
 import LockIcon from '@material-ui/icons/Lock';
@@ -11,9 +10,7 @@ import axios from 'axios';
 import { backendSQL } from '../../../config';
 import { useAuth } from '../../../auth/useAuth.jsx';
 
-import Wrapper from '../../../components/Wrapper/wrapper.jsx';
 import DealerWrapper from '../../../components/Wrapper/DealerWrapper.jsx';
-import OptiStart from '../../../assets/img/optistart.png';
 import { getRemaining } from '../../../helpers/getRemaining';
 import { getMonthName } from '../../../helpers/getMonthName';
 import { formatNumber } from '../../../helpers/formatNumber';
@@ -29,7 +26,6 @@ const BorderLinearProgress = withStyles((theme) => ({
   },
   bar: {
     borderRadius: 5,
-    // backgroundColor: '#96D93B',
     backgroundColor: '#00953B',
   },
 }))(LinearProgress);
@@ -126,6 +122,7 @@ const Dealer = () => {
       }
     }
     getUserInfo();
+    // eslint-disable-next-line
   }, [user]);
 
   useEffect(() => {
@@ -158,7 +155,6 @@ const Dealer = () => {
                 {wasObjectiveReached.purina ? (
                   <BeenhereIcon
                     style={{
-                      // fill: '#96D93B',
                       fill: '#00953B',
                       fontSize: '50px',
                     }}
@@ -237,7 +233,6 @@ const Dealer = () => {
                 {wasObjectiveReached.ladrina ? (
                   <BeenhereIcon
                     style={{
-                      // fill: '#96D93B',
                       fill: '#00953B',
                       fontSize: '50px',
                     }}
@@ -316,7 +311,6 @@ const Dealer = () => {
                 {wasObjectiveReached.gatsy ? (
                   <BeenhereIcon
                     style={{
-                      // fill: '#96D93B',
                       fill: '#00953B',
                       fontSize: '50px',
                     }}

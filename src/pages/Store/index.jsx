@@ -5,7 +5,6 @@ import BeenhereIcon from '@material-ui/icons/Beenhere';
 import './store.css';
 import { backendSQL } from '../../config';
 import { useAuth } from '../../auth/useAuth.jsx';
-// import Wrapper from '../../components/Wrapper/wrapper.jsx';
 import DealerWrapper from '../../components/Wrapper/DealerWrapper.jsx';
 
 export const Store = () => {
@@ -46,6 +45,7 @@ export const Store = () => {
       updateRemainingPoints();
       localStorage.setItem('purinaCart', JSON.stringify(cart));
     }
+    // eslint-disable-next-line
   }, [cart]);
 
   const addToCart = (product) => {
@@ -167,7 +167,7 @@ export const Store = () => {
                           </span>
                         </div>
                       </div>
-                      <a className="store-product-name">{product.name}</a>
+                      <span className="store-product-name">{product.name}</span>
                       <p className="store-product-price">
                         Puntos: {product.programAwardCosts[0].shopCost}
                       </p>
