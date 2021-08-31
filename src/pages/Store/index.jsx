@@ -130,8 +130,9 @@ export const Store = () => {
                           </button>
                         ) : (
                           <>
-                            {parseFloat(product.programAwardCosts[0].shopCost) <
-                              parseFloat(remainingPoints) && (
+                            {parseFloat(
+                              product.programAwardCosts[0].shopCost
+                            ) <= parseFloat(remainingPoints) && (
                               <button
                                 type="button"
                                 className="btn-cart"
